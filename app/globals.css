@@ -468,6 +468,45 @@ nav a:focus-visible {
   white-space: nowrap;
 }
 
+.artist-profiles {
+  align-items: end;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: clamp(36px, 7vw, 100px);
+  grid-template-columns: minmax(220px, 0.55fr) 1.45fr;
+}
+
+.artist-profiles h2 {
+  font-size: clamp(2.8rem, 6vw, 5.8rem);
+  margin: 8px 0 0;
+}
+
+.artist-profile-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.artist-profile-grid a {
+  align-items: center;
+  border: 1px solid var(--line);
+  display: flex;
+  font-size: 0.72rem;
+  font-weight: 850;
+  justify-content: space-between;
+  letter-spacing: 0.11em;
+  min-height: 56px;
+  padding: 16px 18px;
+  text-transform: uppercase;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.artist-profile-grid a:hover,
+.artist-profile-grid a:focus-visible {
+  background: var(--green);
+  color: var(--ink);
+}
+
 .singles {
   align-items: center;
   background: #e7eee9;
@@ -970,6 +1009,31 @@ a.platform-link:focus-visible {
   font-size: 0.78rem;
 }
 
+.track-name a:hover,
+.track-name a:focus-visible,
+.track-lyrics-link:hover,
+.track-lyrics-link:focus-visible {
+  color: var(--release-accent);
+}
+
+.track-name a {
+  align-items: center;
+  display: inline-flex;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.track-lyrics-link {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  min-height: 44px;
+  text-transform: uppercase;
+}
+
 .track-duration { flex: 0 0 auto; }
 
 .credit-list dt { color: var(--muted); }
@@ -985,8 +1049,83 @@ a.platform-link:focus-visible {
 }
 
 .release-pagination a:last-child { text-align: right; }
+.release-pagination a { display: block; min-height: 44px; }
 .release-pagination span { color: var(--muted); display: block; font-size: 0.65rem; letter-spacing: 0.14em; margin-bottom: 8px; text-transform: uppercase; }
 .release-pagination strong { font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 400; }
+
+.lyric-page {
+  --release-accent: var(--green);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--release-accent) 7%, var(--ink)), var(--ink) 42rem);
+}
+
+.lyric-hero {
+  padding-bottom: clamp(48px, 7vw, 92px);
+  padding-top: clamp(52px, 7vw, 92px);
+}
+
+.lyric-hero .back-link { margin-bottom: 28px; }
+
+.lyric-hero-layout {
+  align-items: center;
+  display: grid;
+  gap: clamp(28px, 5vw, 70px);
+  grid-template-columns: clamp(130px, 20vw, 260px) 1fr;
+}
+
+.lyric-hero-layout img {
+  aspect-ratio: 1;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.28);
+  object-fit: cover;
+  width: 100%;
+}
+
+.lyric-hero h1,
+.lyrics-heading h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+}
+
+.lyric-hero h1 {
+  font-size: clamp(3rem, 8vw, 7.5rem);
+  line-height: 0.92;
+  margin: 10px 0 18px;
+  overflow-wrap: anywhere;
+}
+
+.lyric-hero-layout > div > p:last-child,
+.lyric-feature { color: var(--muted); }
+
+.lyrics-section {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: clamp(44px, 10vw, 150px);
+  grid-template-columns: minmax(210px, 0.55fr) minmax(0, 1fr);
+  padding-top: clamp(60px, 8vw, 110px);
+}
+
+.lyrics-heading {
+  align-self: start;
+  position: sticky;
+  top: 32px;
+}
+
+.lyrics-heading h2 {
+  font-size: clamp(2.2rem, 4vw, 4.2rem);
+  line-height: 1;
+  margin: 12px 0 0;
+}
+
+.lyrics-copy {
+  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  line-height: 1.8;
+  min-width: 0;
+}
+
+.lyrics-copy p {
+  margin: 0 0 2.1em;
+  overflow-wrap: anywhere;
+}
 
 .legal-page,
 .not-found {
@@ -1008,10 +1147,14 @@ a.platform-link:focus-visible {
 .not-found .button { margin-top: 24px; }
 
 @media (max-width: 900px) {
+  .artist-profiles,
   .release-hero,
-  .release-details {
+  .release-details,
+  .lyrics-section {
     grid-template-columns: 1fr;
   }
+
+  .lyrics-heading { position: static; }
 
   .release-hero-art {
     justify-self: center;
@@ -1030,6 +1173,7 @@ a.platform-link:focus-visible {
 }
 
 @media (max-width: 620px) {
+  .artist-profile-grid { grid-template-columns: 1fr; }
   .release-hero {
     min-height: auto;
     padding: 52px 22px 78px;
@@ -1043,6 +1187,10 @@ a.platform-link:focus-visible {
   .release-pagination > span:empty { display: none; }
   .platform-link { min-height: 56px; }
   .network-links { flex-direction: column; gap: 13px; }
+  .lyric-hero { padding-left: 22px; padding-right: 22px; }
+  .lyric-hero-layout { align-items: start; grid-template-columns: 72px minmax(0, 1fr); }
+  .lyric-hero h1 { font-size: clamp(2.2rem, 11vw, 4rem); }
+  .lyrics-copy { line-height: 1.7; }
 }
 
 @media (prefers-reduced-motion: reduce) {

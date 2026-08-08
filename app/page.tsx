@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { NetworkFooter } from "@/components/NetworkFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { formatKind, publicProjects, publicSingles } from "@/data/catalog";
+import { artistProfiles, formatKind, publicProjects, publicSingles } from "@/data/catalog";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -46,6 +46,20 @@ export default function Home() {
 
       <section className="manifesto" aria-label="PepMusic introduction">
         <p>INDEPENDENT MUSIC</p><p>PENNSYLVANIA</p><p>EST. 2016</p>
+      </section>
+
+      <section className="artist-profiles section-shell" aria-labelledby="find-pep-title">
+        <div>
+          <p className="eyebrow">LISTEN &amp; FOLLOW</p>
+          <h2 id="find-pep-title">Find Pep.</h2>
+        </div>
+        <div className="artist-profile-grid">
+          {artistProfiles.map((destination) => (
+            <a key={destination.platform} href={destination.url} target="_blank" rel="noopener noreferrer">
+              <span>{destination.platform}</span><span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </div>
       </section>
 
       <section className="catalog section-shell" id="music">

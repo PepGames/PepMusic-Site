@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Lyrics } from "@/components/Lyrics";
 import { NetworkFooter } from "@/components/NetworkFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import {
@@ -9,6 +10,7 @@ import {
   getReleaseNeighbors,
   publicCatalog,
 } from "@/data/catalog";
+import { readLyrics } from "@/data/lyrics";
 
 type ReleasePageProps = { params: Promise<{ slug: string }> };
 
@@ -52,6 +54,7 @@ export default async function ReleasePage({ params }: ReleasePageProps) {
   const { previous, next } = getReleaseNeighbors(slug);
   const livePlatforms = release.platforms.filter((destination) => destination.status === "live");
   const pendingPlatforms = release.platforms.filter((destination) => destination.status === "coming-soon");
+  const singleLyrics = release.lyricsFile ? readLyrics(release.lyricsFile) : undefined;
 
   return (
     <main className={`release-page release-theme-${release.theme}`}>
@@ -116,10 +119,10 @@ export default async function ReleasePage({ params }: ReleasePageProps) {
               <ol className="track-list">{release.tracks.map((track) => (
                 <li key={track.title}>
                   <span className="track-name">
-                    <span>{track.title}</span>
+                    {track.lyricsFile ? <Link href={`/${release.slug}/${track.slug}`}>{track.title}</Link> : <span>{track.title}</span>}
                     {track.featuredArtists?.length ? <small>Featuring {track.featuredArtists.join(", ")}</small> : null}
                   </span>
-                  {track.duration && <span className="track-duration">{track.duration}</span>}
+                  {track.lyricsFile ? <Link className="track-lyrics-link" href={`/${release.slug}/${track.slug}`} aria-label={`Read ${track.title} lyrics`}>Lyrics →</Link> : track.duration ? <span className="track-duration">{track.duration}</span> : null}
                 </li>
               ))}</ol>
             </section>
@@ -131,6 +134,8 @@ export default async function ReleasePage({ params }: ReleasePageProps) {
           ) : null}
         </div>
       </section>
+
+      {singleLyrics ? <Lyrics lyrics={singleLyrics} title={`${release.title} lyrics`} /> : null}
 
       <nav className="release-pagination section-shell" aria-label="Catalog navigation">
         {previous ? <Link href={`/${previous.slug}`}><span>Previous</span><strong>← {previous.title}</strong></Link> : <span />}
