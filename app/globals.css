@@ -1053,6 +1053,111 @@ a.platform-link:focus-visible {
 .release-pagination span { color: var(--muted); display: block; font-size: 0.65rem; letter-spacing: 0.14em; margin-bottom: 8px; text-transform: uppercase; }
 .release-pagination strong { font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 400; }
 
+.archive-page {
+  background: radial-gradient(circle at 75% 10%, rgba(128, 201, 232, 0.12), transparent 32rem), var(--ink);
+}
+
+.archive-hero {
+  max-width: 1100px;
+  padding-bottom: clamp(64px, 9vw, 120px);
+  padding-top: clamp(72px, 10vw, 145px);
+}
+
+.archive-hero h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4.2rem, 11vw, 10rem);
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  line-height: 0.88;
+  margin: 14px 0 32px;
+}
+
+.archive-hero > p:last-child {
+  color: var(--muted);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.75;
+  max-width: 47rem;
+}
+
+.archive-list {
+  border-top: 1px solid var(--line);
+  display: grid;
+  padding-top: 0;
+}
+
+.archive-row {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: clamp(30px, 5vw, 80px);
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.55fr);
+  padding: clamp(28px, 4vw, 55px) 0;
+}
+
+.archive-release-link {
+  align-items: center;
+  display: grid;
+  gap: clamp(22px, 4vw, 48px);
+  grid-template-columns: clamp(96px, 13vw, 170px) minmax(0, 1fr);
+  min-height: 44px;
+}
+
+.archive-release-link img {
+  aspect-ratio: 1;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.25);
+  object-fit: cover;
+  width: 100%;
+}
+
+.archive-release-link p {
+  color: var(--green);
+  font-size: 0.64rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  margin: 0 0 9px;
+  text-transform: uppercase;
+}
+
+.archive-release-link h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 4vw, 3.8rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  margin: 0 0 13px;
+}
+
+.archive-release-link div > span {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.archive-destinations {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.archive-destinations a {
+  align-items: center;
+  border: 1px solid var(--line);
+  display: flex;
+  font-size: 0.65rem;
+  font-weight: 850;
+  justify-content: space-between;
+  letter-spacing: 0.09em;
+  min-height: 48px;
+  padding: 12px 14px;
+  text-transform: uppercase;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.archive-destinations a:hover,
+.archive-destinations a:focus-visible {
+  background: var(--green);
+  color: var(--ink);
+}
+
 .lyric-page {
   --release-accent: var(--green);
   background: linear-gradient(180deg, color-mix(in srgb, var(--release-accent) 7%, var(--ink)), var(--ink) 42rem);
@@ -1156,6 +1261,8 @@ a.platform-link:focus-visible {
 
   .lyrics-heading { position: static; }
 
+  .archive-row { grid-template-columns: 1fr; }
+
   .release-hero-art {
     justify-self: center;
     width: min(76vw, 560px);
@@ -1191,6 +1298,11 @@ a.platform-link:focus-visible {
   .lyric-hero-layout { align-items: start; grid-template-columns: 72px minmax(0, 1fr); }
   .lyric-hero h1 { font-size: clamp(2.2rem, 11vw, 4rem); }
   .lyrics-copy { line-height: 1.7; }
+  .archive-hero { padding-left: 22px; padding-right: 22px; }
+  .archive-list { padding-left: 22px; padding-right: 22px; }
+  .archive-release-link { align-items: start; grid-template-columns: 86px minmax(0, 1fr); }
+  .archive-release-link div > span { display: none; }
+  .archive-destinations { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {

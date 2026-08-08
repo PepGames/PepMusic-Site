@@ -22,9 +22,7 @@ export default function Home() {
           <p className="hero-intro">{growth.summary} The official release date and listening links are coming soon.</p>
           <div className="hero-actions">
             <Link className="button button-primary" href="/growth">Enter the Growth page</Link>
-            <a className="button button-quiet" href="https://soundcloud.com/joshuapepoli" target="_blank" rel="noopener noreferrer">
-              Hear the archive <span aria-hidden="true">↗</span>
-            </a>
+            <Link className="button button-quiet" href="/archive">Explore the archive</Link>
           </div>
           <dl className="release-facts">
             <div><dt>Artist</dt><dd>{growth.artist}</dd></div>

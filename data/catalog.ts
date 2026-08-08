@@ -495,6 +495,7 @@ export const publicCatalog = catalog
 
 export const publicProjects = publicCatalog.filter((item) => item.kind === "album" || item.kind === "ep");
 export const publicSingles = publicCatalog.filter((item) => item.kind === "single");
+export const archiveCatalog = publicCatalog.filter((item) => item.status === "archive");
 export const publicLyricTracks = publicCatalog.flatMap((release) =>
   (release.tracks ?? [])
     .filter((track) => Boolean(track.lyricsFile))
