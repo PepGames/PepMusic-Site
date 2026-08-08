@@ -957,6 +957,21 @@ a.platform-link:focus-visible {
   padding: 14px 0;
 }
 
+.track-name {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.track-name small,
+.track-duration {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.track-duration { flex: 0 0 auto; }
+
 .credit-list dt { color: var(--muted); }
 .credit-list dd { margin: 0; }
 

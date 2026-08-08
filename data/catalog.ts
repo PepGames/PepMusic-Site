@@ -71,7 +71,7 @@ export type CatalogItem = {
 };
 
 const soundCloudProfile = "https://soundcloud.com/joshuapepoli";
-const researchedOn = "2026-08-07";
+const researchedOn = "2026-08-08";
 
 const growthPlatforms: PlatformDestination[] = platformNames.map((platform) => ({
   platform,
@@ -118,18 +118,34 @@ export const catalog: CatalogItem[] = [
     theme: "halves",
     summary: "A 2018 EP from the Pep archive.",
     story: [
-      "Two Halves and Two Paths is Pep's 2018 EP. Its original release information and platform destinations are being carefully restored for the official archive.",
+      "Everything changed in the year leading up to Pep's third project. Two Halves and Two Paths looks at the opportunities ahead, the opposing sides within a person, and the choices that appear at a crossroads.",
+      "The project follows that tension between good and evil toward an ultimate decision. It was released on June 27, 2018.",
     ],
+    releaseDate: "2018-06-27",
+    tracks: [
+      { title: "Work" },
+      { title: "My Crew" },
+      { title: "Until I Die" },
+      { title: "Prayers" },
+      { title: "Devil's Love Song" },
+      { title: "Rock Bottom" },
+    ],
+    credits: [{ role: "Production", name: "Airavata" }],
     platforms: [
-      { platform: "SoundCloud", status: "live", url: soundCloudProfile, label: "SoundCloud archive" },
+      {
+        platform: "SoundCloud",
+        status: "live",
+        url: "https://soundcloud.com/joshuapepoli/sets/two-halves-and-two-paths",
+        label: "Play on SoundCloud",
+      },
     ],
     sources: [
       { provider: "owner", note: "Pep confirmed the title, format, and 2018 release year." },
       {
         provider: "SoundCloud",
-        url: soundCloudProfile,
+        url: "https://soundcloud.com/joshuapepoli/sets/two-halves-and-two-paths",
         retrievedOn: researchedOn,
-        note: "Pep's public profile identifies the EP as released and available through the archive.",
+        note: "Direct official playlist verifies the description, six-track sequence, production credit, and June 27, 2018 release date.",
       },
     ],
     catalogOrder: 2,
@@ -147,18 +163,37 @@ export const catalog: CatalogItem[] = [
     theme: "descent",
     summary: "A 2017 album from the Pep archive.",
     story: [
-      "The Descent is Pep's 2017 album. Verified track details, credits, lyrics, and direct platform destinations will be added as the original release archive is rebuilt.",
+      "The Descent is Pep's second full project and the first half of a planned two-part story. It follows a mindset re-entering the atmosphere while the past burns away.",
+      "Old friendships and relationships fall behind as the pursuit of success pulls the story farther into darkness. The project was released on December 24, 2017.",
+    ],
+    releaseDate: "2017-12-24",
+    tracks: [
+      { title: "I Will Rejoice" },
+      { title: "I Know" },
+      { title: "Product of Everything" },
+      { title: "Diamonds" },
+      { title: "bandsonit" },
+      { title: "Fuck Everybody" },
+      { title: "My Turn" },
+      { title: "Missed Opportunities" },
+      { title: "The Struggle" },
+      { title: "Gone" },
     ],
     platforms: [
-      { platform: "SoundCloud", status: "live", url: soundCloudProfile, label: "SoundCloud archive" },
+      {
+        platform: "SoundCloud",
+        status: "live",
+        url: "https://soundcloud.com/joshuapepoli/sets/the-descent",
+        label: "Play on SoundCloud",
+      },
     ],
     sources: [
       { provider: "owner", note: "Pep confirmed the title, format, and 2017 release year." },
       {
         provider: "SoundCloud",
-        url: soundCloudProfile,
+        url: "https://soundcloud.com/joshuapepoli/sets/the-descent",
         retrievedOn: researchedOn,
-        note: "Pep's public profile identifies the album as released and available through the archive.",
+        note: "Direct official playlist verifies the description, ten-track sequence, and December 24, 2017 release date. SoundCloud labels it an EP; owner-confirmed album classification remains authoritative.",
       },
     ],
     catalogOrder: 3,
@@ -176,18 +211,44 @@ export const catalog: CatalogItem[] = [
     theme: "lift",
     summary: "Pep's 2016 debut album.",
     story: [
-      "Lift Off began Pep's project catalog in 2016. The original release currently lives in the SoundCloud archive while its official details are reconstructed here.",
+      "Lift Off is Pep's first full project. Its fourteen tracks look back at his life up to that point while reaching toward the dreams and direction ahead.",
+      "The project began Pep's catalog in 2016 and remains available through the original SoundCloud archive.",
+    ],
+    tracks: [
+      { title: "Interstellar" },
+      { title: "Keep Your Head Up" },
+      { title: "Unapproachable" },
+      { title: "The Best", featuredArtists: ["$uicide Kent"] },
+      { title: "Soothe My Soul" },
+      { title: "Dreams" },
+      { title: "No Pressure" },
+      { title: "Take Me Away" },
+      { title: "The Fool" },
+      { title: "Alone" },
+      { title: "Phenomenon" },
+      { title: "Me" },
+      { title: "Circles", featuredArtists: ["$uicide Kent"] },
+      { title: "May (Bonus Track)" },
+    ],
+    credits: [
+      { role: "Production — The Best", name: "Syndrome" },
+      { role: "Production — Alone and Me", name: "Airavata" },
     ],
     platforms: [
-      { platform: "SoundCloud", status: "live", url: soundCloudProfile, label: "SoundCloud archive" },
+      {
+        platform: "SoundCloud",
+        status: "live",
+        url: "https://soundcloud.com/joshuapepoli/sets/lift-off",
+        label: "Play on SoundCloud",
+      },
     ],
     sources: [
       { provider: "owner", note: "Pep confirmed the title, format, 2016 release year, and SoundCloud availability." },
       {
         provider: "SoundCloud",
-        url: soundCloudProfile,
+        url: "https://soundcloud.com/joshuapepoli/sets/lift-off",
         retrievedOn: researchedOn,
-        note: "Verified official Pep profile used as the archival listening destination.",
+        note: "Direct official playlist verifies the description and fourteen-track sequence. SoundCloud labels it an EP and shows May 4, 2017; owner-confirmed album classification and 2016 release year remain authoritative, so the conflicting platform date is not presented as the official release date.",
       },
     ],
     catalogOrder: 4,
@@ -205,6 +266,7 @@ export const catalog: CatalogItem[] = [
     artworkAlt: "Achievement single cover artwork",
     theme: "achievement",
     summary: "A track published to Pep's SoundCloud archive in 2022.",
+    story: ["A concise note of gratitude accompanies Achievement in Pep's official SoundCloud archive."],
     platforms: [
       {
         platform: "SoundCloud",
@@ -236,6 +298,7 @@ export const catalog: CatalogItem[] = [
     artworkAlt: "Mistakes single cover artwork",
     theme: "mistakes",
     summary: "A track published to Pep's SoundCloud archive in 2022.",
+    story: ["Mistakes reflects on wrong turns as part of the larger journey rather than as the end of it."],
     platforms: [
       {
         platform: "SoundCloud",
@@ -255,15 +318,15 @@ export const catalog: CatalogItem[] = [
     catalogOrder: 6,
   },
   ...[
-    ["righteous-hearts-prod-pep", "Righteous Hearts (Prod. Pep)", "production", 2023, "2023-02-03T04:25:58Z"],
-    ["less-than-zero-cover", "Less Than Zero (The Weeknd Cover)", "cover", 2023, "2023-01-30T20:47:35Z"],
-    ["gh05t", "GH05T", "single", 2022, "2022-10-13T19:57:08Z"],
-    ["fumble-remix", "Fumble (Tilekid/Sace Remix)", "remix", 2022, "2022-09-07T23:55:09Z"],
-    ["nonchalant", "Nonchalant (Feat. $uicide Kent)", "feature", 2022, "2022-06-07T19:23:04Z"],
-    ["how-u-feel-snippet", "how u feel (snippet)", "snippet", 2022, "2022-01-25T07:56:20Z"],
-    ["work", "Work", "single", 2018, "2018-06-28T16:54:07Z"],
-    ["my-crew", "My Crew", "single", 2018, "2018-06-28T16:54:05Z"],
-  ].map(([slug, title, kind, year, publishedAt], index) => ({
+    ["righteous-hearts-prod-pep", "Trippie Redd x Mo Beats - Righteous Hearts (Prod Pep)", "production", 2023, "2023-02-03T04:25:58Z", "trippie-redd-x-mo-beats-righteous-hearts-prod-pep"],
+    ["less-than-zero-cover", "Less Than Zero (The Weeknd Cover)", "cover", 2023, "2023-01-30T20:47:35Z", "less-than-zero-the-weeknd-cover"],
+    ["gh05t", "GH05T", "single", 2022, "2022-10-13T19:57:08Z", "gh05t"],
+    ["fumble-remix", "Fumble (Tilekid/Sace Remix)", "remix", 2022, "2022-09-07T23:55:09Z", "fumble-tilekidsace-remix"],
+    ["nonchalant", "Nonchalant (Feat. $uicide Kent)", "feature", 2022, "2022-06-07T19:23:04Z", "nonchalant-feat-uicide-kent"],
+    ["how-u-feel-snippet", "how u feel (snippet)", "snippet", 2022, "2022-01-25T07:56:20Z", "how-u-feel-snippet"],
+    ["work", "Work", "single", 2018, "2018-06-28T16:54:07Z", "work"],
+    ["my-crew", "My Crew", "single", 2018, "2018-06-28T16:54:05Z", "my-crew"],
+  ].map(([slug, title, kind, year, publishedAt, soundCloudSlug], index) => ({
     slug: String(slug),
     title: String(title),
     artist: "Pep" as const,
@@ -278,9 +341,9 @@ export const catalog: CatalogItem[] = [
     sources: [
       {
         provider: "SoundCloud" as const,
-        url: soundCloudProfile,
+        url: `${soundCloudProfile}/${soundCloudSlug}`,
         retrievedOn: researchedOn,
-        note: "Title and publication timestamp verified on Pep's official profile; direct destination not yet curated.",
+        note: "Title, direct destination, and publication timestamp verified on Pep's official profile; held for editorial review.",
       },
     ],
     catalogOrder: 100 + index,

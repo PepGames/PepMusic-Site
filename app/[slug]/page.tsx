@@ -67,7 +67,14 @@ export default async function ReleasePage({ params }: ReleasePageProps) {
           <p className="release-summary">{release.summary}</p>
           <dl className="release-facts release-page-facts">
             <div><dt>Artist</dt><dd>{release.artist}</dd></div>
-            <div><dt>Year</dt><dd>{release.year}</dd></div>
+            <div>
+              <dt>{release.releaseDate ? "Released" : "Year"}</dt>
+              <dd>
+                {release.releaseDate
+                  ? new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(`${release.releaseDate}T00:00:00Z`))
+                  : release.year}
+              </dd>
+            </div>
             <div><dt>Format</dt><dd>{formatKind(release.kind)}</dd></div>
           </dl>
 
@@ -106,7 +113,15 @@ export default async function ReleasePage({ params }: ReleasePageProps) {
         <div className="release-information">
           {release.tracks?.length ? (
             <section aria-labelledby="tracks-title"><p className="eyebrow">TRACKS</p><h2 id="tracks-title">Track list</h2>
-              <ol className="track-list">{release.tracks.map((track) => <li key={track.title}><span>{track.title}</span>{track.duration && <span>{track.duration}</span>}</li>)}</ol>
+              <ol className="track-list">{release.tracks.map((track) => (
+                <li key={track.title}>
+                  <span className="track-name">
+                    <span>{track.title}</span>
+                    {track.featuredArtists?.length ? <small>Featuring {track.featuredArtists.join(", ")}</small> : null}
+                  </span>
+                  {track.duration && <span className="track-duration">{track.duration}</span>}
+                </li>
+              ))}</ol>
             </section>
           ) : (
             <section className="archive-pending" aria-labelledby="archive-title"><p className="eyebrow">ARCHIVE STATUS</p><h2 id="archive-title">Details in progress</h2><p>Track information, lyrics, and credits will appear only after they are verified.</p></section>
