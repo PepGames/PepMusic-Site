@@ -1,10 +1,13 @@
 # PepMusic Site
 
-Official website for PepMusic and the music of Pep.
+The static, data-driven official site for PepMusic and the music of Pep.
 
-## Current focus
+## Local development
 
-The first release highlights the forthcoming 2026 album _Growth_ and presents
-the project archive from _Lift Off_ onward.
+- `npm install`
+- `npm run dev`
+- `npm test`
 
-Artwork is copyright Pep. All rights reserved unless stated otherwise.
+The release catalog lives in `data/catalog.ts`. Only entries with `visibility: "public"` generate pages. SoundCloud research timestamps are stored as `publishedAt` and are intentionally separate from confirmed `releaseDate` values.
+
+Production deployment, DNS, and the PepUniverse Cloudflare Worker are intentionally managed separately.
