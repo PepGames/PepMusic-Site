@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { NetworkFooter } from "@/components/NetworkFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
-export const metadata: Metadata = { title: "Privacy | PepMusic", description: "PepMusic privacy notice." };
+export const metadata: Metadata = {
+  title: "Privacy | PepMusic",
+  description: "PepMusic privacy notice.",
+  alternates: { canonical: "/privacy" },
+};
 
 export default function PrivacyPage() {
   return (

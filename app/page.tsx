@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { NetworkFooter } from "@/components/NetworkFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { formatKind, publicProjects, publicSingles } from "@/data/catalog";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   const growth = publicProjects.find((project) => project.slug === "growth")!;

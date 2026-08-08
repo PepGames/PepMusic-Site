@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { NetworkFooter } from "@/components/NetworkFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
-export const metadata: Metadata = { title: "Terms | PepMusic", description: "PepMusic website terms." };
+export const metadata: Metadata = {
+  title: "Terms | PepMusic",
+  description: "PepMusic website terms.",
+  alternates: { canonical: "/terms" },
+};
 
 export default function TermsPage() {
   return (

@@ -5,7 +5,6 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://music.pepuniverse.com"),
   title: "PepMusic | Pep",
   description: "The official home of PepMusic. Explore the music of Pep and the upcoming 2026 album Growth.",
-  alternates: { canonical: "/" },
   icons: { icon: "/favicon.png", shortcut: "/favicon.png" },
   openGraph: {
     title: "PepMusic | Growth — Coming 2026",

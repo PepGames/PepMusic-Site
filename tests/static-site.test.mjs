@@ -46,10 +46,20 @@ test("publishing timestamps are labeled separately from release dates", async ()
   assert.match(page, /not a separately confirmed commercial release date/);
 });
 
+test("publishes page-specific canonicals and keeps 404s out of search", async () => {
+  assert.match(await html("index.html"), /rel="canonical" href="https:\/\/music\.pepuniverse\.com\/"/);
+  assert.match(await html("privacy/index.html"), /rel="canonical" href="https:\/\/music\.pepuniverse\.com\/privacy\/"/);
+  assert.match(await html("terms/index.html"), /rel="canonical" href="https:\/\/music\.pepuniverse\.com\/terms\/"/);
+  const missing = await html("404.html");
+  assert.doesNotMatch(missing, /rel="canonical"/);
+  assert.match(missing, /name="robots" content="noindex, nofollow"/);
+});
+
 test("ships static security headers", async () => {
   const headers = await readFile(new URL("../public/_headers", import.meta.url), "utf8");
   assert.match(headers, /Content-Security-Policy/);
   assert.match(headers, /X-Content-Type-Options: nosniff/);
   assert.match(headers, /X-Frame-Options: DENY/);
   assert.match(headers, /Permissions-Policy/);
+  assert.match(headers, /https:\/\/:preview\.pepmusic-site\.pages\.dev\/\*/);
 });
