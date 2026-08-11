@@ -46,7 +46,7 @@ export default function Home() {
         <p>INDEPENDENT MUSIC</p><p>PENNSYLVANIA</p><p>EST. 2016</p>
       </section>
 
-      <section className="artist-profiles section-shell" aria-labelledby="find-pep-title">
+      <section className="artist-profiles section-shell" id="find-pep" aria-labelledby="find-pep-title">
         <div>
           <p className="eyebrow">LISTEN &amp; FOLLOW</p>
           <h2 id="find-pep-title">Find Pep.</h2>
@@ -62,8 +62,7 @@ export default function Home() {
 
       <section className="catalog section-shell" id="music">
         <div className="section-heading">
-          <div><p className="eyebrow">THE CATALOG</p><h2>From lift off<br />to growth.</h2></div>
-          <p>Four projects tracing movement, duality, descent, and renewal. Each project now has a permanent home for its story and listening destinations.</p>
+          <p className="eyebrow">THE CATALOG</p>
         </div>
         <div className="release-grid">
           {publicProjects.map((project, index) => (
@@ -84,7 +83,6 @@ export default function Home() {
       <section className="singles section-shell" aria-labelledby="singles-title">
         <div className="singles-copy">
           <p className="eyebrow">BETWEEN THE CHAPTERS</p><h2 id="singles-title">Selected singles</h2>
-          <p>Selected releases from the archive, with more tracks held for review as the official catalog is rebuilt.</p>
         </div>
         <div className="single-covers">
           {publicSingles.map((single) => (
@@ -95,20 +93,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="about section-shell" id="about">
-        <div className="about-symbol" aria-hidden="true">
-          <span className="trunk" /><span className="branch branch-one" /><span className="branch branch-two" /><span className="branch branch-three" />
-        </div>
-        <div className="about-copy">
-          <p className="eyebrow">ABOUT PEP</p><h2>Every project is a marker on the path.</h2>
-          <p>Pep is an independent artist from Pennsylvania. Since 2016, each release has captured a different point in an evolving story—looking outward, falling inward, choosing between paths, and finding what still grows through the cold.</p>
-          <p>Growth begins the next chapter. PepMusic is the official home for new music, the archive, lyrics, and the stories behind the songs.</p>
-        </div>
-      </section>
-
       <section className="cta section-shell">
         <p className="eyebrow">THE NEXT CHAPTER</p><h2>Growth is coming in 2026.</h2>
-        <p>Visit the album page for its story and future listening destinations.</p>
         <Link className="button button-primary" href="/growth">Explore Growth</Link>
       </section>
       <NetworkFooter />

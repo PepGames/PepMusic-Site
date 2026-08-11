@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Lyrics } from "@/components/Lyrics";
 import { NetworkFooter } from "@/components/NetworkFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SongMedia } from "@/components/SongMedia";
 import {
   formatKind,
   getPublicRelease,
@@ -55,6 +56,9 @@ export default async function ReleasePage({ params }: ReleasePageProps) {
   const livePlatforms = release.platforms.filter((destination) => destination.status === "live");
   const pendingPlatforms = release.platforms.filter((destination) => destination.status === "coming-soon");
   const singleLyrics = release.lyricsFile ? readLyrics(release.lyricsFile) : undefined;
+  const isSingle = release.kind === "single";
+  const hasStory = Boolean(release.story?.length);
+  const hasReleaseInformation = Boolean(release.tracks?.length || release.credits?.length);
 
   return (
     <main className={`release-page release-theme-${release.theme}`}>
@@ -67,7 +71,7 @@ export default async function ReleasePage({ params }: ReleasePageProps) {
           <Link className="back-link" href="/#music">← All releases</Link>
           <p className="eyebrow">{release.status === "upcoming" ? "UPCOMING" : "FROM THE ARCHIVE"}</p>
           <h1 id="release-title">{release.title}</h1>
-          <p className="release-summary">{release.summary}</p>
+          {(!isSingle || release.description) && <p className="release-summary">{release.description ?? release.summary}</p>}
           <dl className="release-facts release-page-facts">
             <div><dt>Artist</dt><dd>{release.artist}</dd></div>
             <div>
@@ -100,22 +104,20 @@ export default async function ReleasePage({ params }: ReleasePageProps) {
             </div>
             {!livePlatforms.length && !pendingPlatforms.length && <p className="pending-note">Verified listening destinations are still being restored.</p>}
           </div>
+          <SongMedia video={release.video} />
         </div>
       </section>
 
-      <section className="release-details section-shell">
-        <div className="release-story">
+      {(hasStory || hasReleaseInformation) && <section className={`release-details section-shell${hasStory && hasReleaseInformation ? "" : " release-details-single"}`}>
+        {hasStory && <div className="release-story">
           <p className="eyebrow">ABOUT THE RELEASE</p>
-          <h2>A marker on the path.</h2>
-          {(release.story ?? [release.summary]).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-          {release.publishedAt && (
-            <p className="source-date">Published to SoundCloud on {new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(release.publishedAt))}. This is a platform publication timestamp, not a separately confirmed commercial release date.</p>
-          )}
-        </div>
+          <h2 className="sr-only">About {release.title}</h2>
+          {release.story!.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+        </div>}
 
-        <div className="release-information">
+        {hasReleaseInformation && <div className="release-information">
           {release.tracks?.length ? (
-            <section aria-labelledby="tracks-title"><p className="eyebrow">TRACKS</p><h2 id="tracks-title">Track list</h2>
+            <section aria-labelledby="tracks-title"><p className="eyebrow">TRACKS</p><h2 className="sr-only" id="tracks-title">Tracks on {release.title}</h2>
               <ol className="track-list">{release.tracks.map((track) => (
                 <li key={track.title}>
                   <span className="track-name">
@@ -126,14 +128,12 @@ export default async function ReleasePage({ params }: ReleasePageProps) {
                 </li>
               ))}</ol>
             </section>
-          ) : (
-            <section className="archive-pending" aria-labelledby="archive-title"><p className="eyebrow">ARCHIVE STATUS</p><h2 id="archive-title">Details in progress</h2><p>Track information, lyrics, and credits will appear only after they are verified.</p></section>
-          )}
-          {release.credits?.length ? (
-            <section aria-labelledby="credits-title"><p className="eyebrow">CREDITS</p><h2 id="credits-title">Credits</h2><dl className="credit-list">{release.credits.map((credit) => <div key={`${credit.role}-${credit.name}`}><dt>{credit.role}</dt><dd>{credit.name}</dd></div>)}</dl></section>
           ) : null}
-        </div>
-      </section>
+          {release.credits?.length ? (
+            <section aria-labelledby="credits-title"><p className="eyebrow">CREDITS</p><h2 className="sr-only" id="credits-title">Credits for {release.title}</h2><dl className="credit-list">{release.credits.map((credit) => <div key={`${credit.role}-${credit.name}`}><dt>{credit.role}</dt><dd>{credit.name}</dd></div>)}</dl></section>
+          ) : null}
+        </div>}
+      </section>}
 
       {singleLyrics ? <Lyrics lyrics={singleLyrics} title={`${release.title} lyrics`} /> : null}
 

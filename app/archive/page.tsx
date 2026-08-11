@@ -22,7 +22,7 @@ export default function ArchivePage() {
       <header className="archive-hero section-shell">
         <p className="eyebrow">THE MUSIC OF PEP</p>
         <h1>The archive.</h1>
-        <p>Projects and singles from 2016 onward. Choose a release for its story and lyrics, or listen on your preferred platform.</p>
+        <p>Projects and singles from 2017 onward. Choose a release for its story and lyrics, or listen on your preferred platform.</p>
       </header>
 
       <section className="archive-list section-shell" aria-label="Archived releases">
