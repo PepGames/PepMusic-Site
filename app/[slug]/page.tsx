@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Lyrics } from "@/components/Lyrics";
 import { NetworkFooter } from "@/components/NetworkFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SongCredits } from "@/components/SongCredits";
 import { SongMedia } from "@/components/SongMedia";
 import {
   formatKind,
@@ -58,7 +59,7 @@ export default async function ReleasePage({ params }: ReleasePageProps) {
   const singleLyrics = release.lyricsFile ? readLyrics(release.lyricsFile) : undefined;
   const isSingle = release.kind === "single";
   const hasStory = Boolean(release.story?.length);
-  const hasReleaseInformation = Boolean(release.tracks?.length || release.credits?.length);
+  const hasReleaseInformation = Boolean(release.tracks?.length);
 
   return (
     <main className={`release-page release-theme-${release.theme}`}>
@@ -129,13 +130,11 @@ export default async function ReleasePage({ params }: ReleasePageProps) {
               ))}</ol>
             </section>
           ) : null}
-          {release.credits?.length ? (
-            <section aria-labelledby="credits-title"><p className="eyebrow">CREDITS</p><h2 className="sr-only" id="credits-title">Credits for {release.title}</h2><dl className="credit-list">{release.credits.map((credit) => <div key={`${credit.role}-${credit.name}`}><dt>{credit.role}</dt><dd>{credit.name}</dd></div>)}</dl></section>
-          ) : null}
         </div>}
       </section>}
 
       {singleLyrics ? <Lyrics lyrics={singleLyrics} title={`${release.title} lyrics`} /> : null}
+      {singleLyrics ? <SongCredits credits={release.credits} title={release.title} /> : null}
 
       <nav className="release-pagination section-shell" aria-label="Catalog navigation">
         {previous ? <Link href={`/${previous.slug}`}><span>Previous</span><strong>← {previous.title}</strong></Link> : <span />}

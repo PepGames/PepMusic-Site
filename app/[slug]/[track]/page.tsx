@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Lyrics } from "@/components/Lyrics";
 import { NetworkFooter } from "@/components/NetworkFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SongCredits } from "@/components/SongCredits";
 import { SongMedia } from "@/components/SongMedia";
 import { getPublicTrack, getTrackNeighbors, publicLyricTracks } from "@/data/catalog";
 import { readLyrics } from "@/data/lyrics";
@@ -50,34 +51,36 @@ export default async function TrackPage({ params }: TrackPageProps) {
     : undefined;
 
   return (
-    <main className={`lyric-page release-theme-${release.theme}`}>
+    <main className={`release-page release-theme-${release.theme}`}>
       <SiteHeader compact />
-      <section className="lyric-hero section-shell" aria-labelledby="track-title">
-        <Link className="back-link" href={`/${release.slug}`}>← {release.title}</Link>
-        <div className={`lyric-hero-layout${track.video ? " has-video" : ""}`}>
-          <div className="lyric-artwork"><img src={release.artwork} alt={release.artworkAlt} /></div>
-          <div className="lyric-hero-copy">
-            <p className="eyebrow">{release.title.toUpperCase()}</p>
-            <h1 id="track-title">{track.title}</h1>
-            {track.featuredArtists?.length ? <p className="lyric-feature">Featuring {track.featuredArtists.join(", ")}</p> : null}
-            {track.description ? <p className="track-description">{track.description}</p> : null}
-            <dl className="song-facts">
-              <div><dt>Artist</dt><dd>{release.artist}</dd></div>
-              {formattedDate ? <div><dt>Released</dt><dd>{formattedDate}</dd></div> : null}
-              <div><dt>Project</dt><dd>{release.title}</dd></div>
-            </dl>
-            {livePlatforms.length ? <div className="song-platforms" aria-label={`Listen to ${track.title}`}>
+      <section className="release-hero" aria-labelledby="track-title">
+        <div className="release-hero-art"><img src={release.artwork} alt={release.artworkAlt} /></div>
+        <div className="release-hero-copy">
+          <Link className="back-link" href={`/${release.slug}`}>← {release.title}</Link>
+          <p className="eyebrow">FROM {release.title.toUpperCase()}</p>
+          <h1 id="track-title">{track.title}</h1>
+          {track.featuredArtists?.length ? <p className="release-summary">Featuring {track.featuredArtists.join(", ")}</p> : null}
+          {track.description ? <p className="release-summary">{track.description}</p> : null}
+          <dl className="release-facts release-page-facts">
+            <div><dt>Artist</dt><dd>{release.artist}</dd></div>
+            {formattedDate ? <div><dt>Released</dt><dd>{formattedDate}</dd></div> : null}
+            <div><dt>Project</dt><dd>{release.title}</dd></div>
+          </dl>
+          {livePlatforms.length ? <div className="platform-section" aria-labelledby="listen-title">
+            <div className="platform-heading"><h2 id="listen-title">Listen</h2></div>
+            <div className="platform-grid">
               {livePlatforms.map((destination) => (
-                <a key={destination.platform} href={destination.url} target="_blank" rel="noopener noreferrer">
-                  <span>{destination.platform}</span><span aria-hidden="true">↗</span>
+                <a key={destination.platform} className="platform-link" href={destination.url} target="_blank" rel="noopener noreferrer">
+                  <span>{destination.label ?? destination.platform}</span><span aria-hidden="true">↗</span>
                 </a>
               ))}
-            </div> : null}
-          </div>
+            </div>
+          </div> : null}
           <SongMedia video={track.video} />
         </div>
       </section>
       <Lyrics lyrics={lyrics} title={`${track.title} lyrics`} />
+      <SongCredits credits={track.credits} title={track.title} />
       <nav className="release-pagination section-shell" aria-label={`${release.title} track navigation`}>
         {previous ? <Link href={`/${release.slug}/${previous.slug}`}><span>Previous track</span><strong>← {previous.title}</strong></Link> : <span />}
         {next ? <Link href={`/${release.slug}/${next.slug}`}><span>Next track</span><strong>{next.title} →</strong></Link> : <Link href={`/${release.slug}`}><span>Return</span><strong>{release.title} →</strong></Link>}

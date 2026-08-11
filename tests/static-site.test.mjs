@@ -146,6 +146,37 @@ test("renders every approved lyric file without dropping or reordering lines", a
   }
 });
 
+test("places complete song credits after lyrics and keeps album pages uncluttered", async () => {
+  for (const route of Object.keys(trackRecords)) {
+    const page = await html(`${route}/index.html`);
+    assert.match(page, />CREDITS</);
+    assert.match(page, />Lyrics</);
+    assert.match(page, />Pep</);
+    assert.match(page, />Beat production</);
+    assert.match(page, />Mixing &amp; mastering</);
+    assert.ok(page.indexOf("OFFICIAL LYRICS") < page.indexOf(">CREDITS"), `${route} must place credits after lyrics`);
+  }
+
+  for (const slug of Object.keys(singleLyrics)) {
+    const page = await html(`${slug}/index.html`);
+    assert.match(page, />CREDITS</);
+    assert.match(page, />Lyrics</);
+    assert.match(page, />Pep</);
+    assert.ok(page.indexOf("OFFICIAL LYRICS") < page.indexOf(">CREDITS"), `${slug} must place credits after lyrics`);
+  }
+
+  for (const slug of ["lift-off", "the-descent", "two-halves-and-two-paths"]) {
+    assert.doesNotMatch(await html(`${slug}/index.html`), />CREDITS</);
+  }
+
+  const theBest = await html("lift-off/the-best/index.html");
+  assert.match(theBest, />Syndrome</);
+  assert.match(theBest, />\$uicide Kent</);
+  const work = await html("two-halves-and-two-paths/work/index.html");
+  assert.match(work, />Airavata</);
+  assert.match(work, />Pep</);
+});
+
 test("public lyric data contains only the 33 approved files", async () => {
   const lyricRoot = new URL("../data/lyrics/", import.meta.url);
   const groups = await readdir(lyricRoot);

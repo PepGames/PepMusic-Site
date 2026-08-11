@@ -45,6 +45,7 @@ export type Track = {
   platforms?: PlatformDestination[];
   video?: YouTubeVideo;
   sources?: CatalogSource[];
+  credits?: Credit[];
 };
 
 export type YouTubeVideo = {
@@ -132,6 +133,17 @@ function verifiedTrack({ soundCloudSlug, spotify, appleMusic, youtubeId, ...trac
   };
 }
 
+function songCredits(beatProducer: string, mixingAndMastering: string, additionalLyrics?: string): Credit[] {
+  return [
+    { role: "Lyrics", name: "Pep" },
+    ...(additionalLyrics ? [{ role: "Additional lyrics", name: additionalLyrics }] : []),
+    { role: "Beat production", name: beatProducer },
+    { role: "Mixing & mastering", name: mixingAndMastering },
+  ];
+}
+
+const pepLyricsCredit: Credit[] = [{ role: "Lyrics", name: "Pep" }];
+
 const growthPlatforms: PlatformDestination[] = platformNames.map((platform) => ({
   platform,
   status: "coming-soon",
@@ -157,16 +169,16 @@ export const catalog: CatalogItem[] = [
       "END “FINAL MESSAGE”...",
     ],
     tracks: [
-      { slug: "light", title: "Light" },
-      { slug: "wambam", title: "WamBam" },
-      { slug: "timepiece", title: "Timepiece" },
-      { slug: "tale-or-maid", title: "Tale or Maid" },
-      { slug: "hml", title: "HML" },
-      { slug: "shoot-me-down", title: "Shoot Me Down" },
-      { slug: "had-enough", title: "Had Enough" },
-      { slug: "luck", title: "Luck", featuredArtists: ["Matty Schreff"] },
-      { slug: "much-to-lose", title: "Much to Lose" },
-      { slug: "goat", title: "G.O.A.T." },
+      { slug: "light", title: "Light", credits: songCredits("Ioannis", "Full Tilt Studios") },
+      { slug: "wambam", title: "WamBam", credits: songCredits("Ioannis", "Full Tilt Studios") },
+      { slug: "timepiece", title: "Timepiece", credits: songCredits("Ioannis", "Full Tilt Studios") },
+      { slug: "tale-or-maid", title: "Tale or Maid", credits: songCredits("CJTheSmoke", "Full Tilt Studios") },
+      { slug: "hml", title: "HML", credits: songCredits("Ioannis", "Full Tilt Studios") },
+      { slug: "shoot-me-down", title: "Shoot Me Down", credits: songCredits("Ioannis", "Full Tilt Studios") },
+      { slug: "had-enough", title: "Had Enough", credits: songCredits("Pep", "Full Tilt Studios") },
+      { slug: "luck", title: "Luck", featuredArtists: ["Matty Schreff"], credits: songCredits("Ioannis", "Full Tilt Studios", "Matty Schreff") },
+      { slug: "much-to-lose", title: "Much to Lose", credits: songCredits("Ioannis", "Full Tilt Studios") },
+      { slug: "goat", title: "G.O.A.T.", credits: songCredits("Ioannis", "Full Tilt Studios") },
     ],
     platforms: growthPlatforms,
     sources: [
@@ -196,14 +208,13 @@ export const catalog: CatalogItem[] = [
     ],
     releaseDate: "2018-06-27",
     tracks: [
-      verifiedTrack({ slug: "work", title: "Work", lyricsFile: "twohalves/work.txt", releaseDate: "2018-06-27", publishedAt: "2018-06-28T16:54:07Z", soundCloudSlug: "work", spotify: "https://open.spotify.com/track/7KxIAoobcxybEvzcAlPoZo", appleMusic: "https://music.apple.com/us/album/work/1522353508?i=1522353510", youtubeId: "H7JiFQ98PMw" }),
-      verifiedTrack({ slug: "my-crew", title: "My Crew", lyricsFile: "twohalves/mycrew.txt", releaseDate: "2018-06-27", publishedAt: "2018-06-28T16:54:05Z", soundCloudSlug: "my-crew", spotify: "https://open.spotify.com/track/4BtUsxEMTuJV5oXIQzw6Y8", appleMusic: "https://music.apple.com/us/album/my-crew/1522353508?i=1522353511", youtubeId: "Jhd1UbgVFi0" }),
-      verifiedTrack({ slug: "until-i-die", title: "Until I Die", lyricsFile: "twohalves/untilidie.txt", releaseDate: "2018-06-27", publishedAt: "2018-06-28T16:54:02Z", soundCloudSlug: "until-i-die", spotify: "https://open.spotify.com/track/3UeQcBG44yWIk9L8zc1hCW", appleMusic: "https://music.apple.com/us/album/until-i-die/1522353508?i=1522353512", youtubeId: "vPLa9YaxJ4c" }),
-      verifiedTrack({ slug: "prayers", title: "Prayers", lyricsFile: "twohalves/prayers.txt", releaseDate: "2018-06-27", publishedAt: "2018-06-28T16:54:00Z", soundCloudSlug: "prayers", spotify: "https://open.spotify.com/track/0GsOu13HuNdi1wXAsuwFnv", appleMusic: "https://music.apple.com/us/album/prayers/1522353508?i=1522353514", youtubeId: "Ufb-v6CcTdA" }),
-      verifiedTrack({ slug: "devils-love-song", title: "Devil's Love Song", lyricsFile: "twohalves/devilslovesong.txt", releaseDate: "2018-06-27", publishedAt: "2018-06-28T16:53:57Z", soundCloudSlug: "devils-love-song", spotify: "https://open.spotify.com/track/6L6gaJFQRmMRctv1XzO8v8", appleMusic: "https://music.apple.com/us/album/devils-love-song/1522353508?i=1522353515", youtubeId: "i9qsdiUeGnA" }),
-      verifiedTrack({ slug: "rock-bottom", title: "Rock Bottom", lyricsFile: "twohalves/rockbottom.txt", releaseDate: "2018-06-28", publishedAt: "2018-06-28T16:53:55Z", soundCloudSlug: "rock-bottom", spotify: "https://open.spotify.com/track/063DeslQCbnH6A6wNPJrPY", appleMusic: "https://music.apple.com/us/album/rock-bottom/1522353508?i=1522353636", youtubeId: "uBgpLewJILU" }),
+      verifiedTrack({ slug: "work", title: "Work", lyricsFile: "twohalves/work.txt", credits: songCredits("Airavata", "Pep"), releaseDate: "2018-06-27", publishedAt: "2018-06-28T16:54:07Z", soundCloudSlug: "work", spotify: "https://open.spotify.com/track/7KxIAoobcxybEvzcAlPoZo", appleMusic: "https://music.apple.com/us/album/work/1522353508?i=1522353510", youtubeId: "H7JiFQ98PMw" }),
+      verifiedTrack({ slug: "my-crew", title: "My Crew", lyricsFile: "twohalves/mycrew.txt", credits: songCredits("Airavata", "Pep"), releaseDate: "2018-06-27", publishedAt: "2018-06-28T16:54:05Z", soundCloudSlug: "my-crew", spotify: "https://open.spotify.com/track/4BtUsxEMTuJV5oXIQzw6Y8", appleMusic: "https://music.apple.com/us/album/my-crew/1522353508?i=1522353511", youtubeId: "Jhd1UbgVFi0" }),
+      verifiedTrack({ slug: "until-i-die", title: "Until I Die", lyricsFile: "twohalves/untilidie.txt", credits: songCredits("Airavata", "Pep"), releaseDate: "2018-06-27", publishedAt: "2018-06-28T16:54:02Z", soundCloudSlug: "until-i-die", spotify: "https://open.spotify.com/track/3UeQcBG44yWIk9L8zc1hCW", appleMusic: "https://music.apple.com/us/album/until-i-die/1522353508?i=1522353512", youtubeId: "vPLa9YaxJ4c" }),
+      verifiedTrack({ slug: "prayers", title: "Prayers", lyricsFile: "twohalves/prayers.txt", credits: songCredits("Airavata", "Pep"), releaseDate: "2018-06-27", publishedAt: "2018-06-28T16:54:00Z", soundCloudSlug: "prayers", spotify: "https://open.spotify.com/track/0GsOu13HuNdi1wXAsuwFnv", appleMusic: "https://music.apple.com/us/album/prayers/1522353508?i=1522353514", youtubeId: "Ufb-v6CcTdA" }),
+      verifiedTrack({ slug: "devils-love-song", title: "Devil's Love Song", lyricsFile: "twohalves/devilslovesong.txt", credits: songCredits("Airavata", "Pep"), releaseDate: "2018-06-27", publishedAt: "2018-06-28T16:53:57Z", soundCloudSlug: "devils-love-song", spotify: "https://open.spotify.com/track/6L6gaJFQRmMRctv1XzO8v8", appleMusic: "https://music.apple.com/us/album/devils-love-song/1522353508?i=1522353515", youtubeId: "i9qsdiUeGnA" }),
+      verifiedTrack({ slug: "rock-bottom", title: "Rock Bottom", lyricsFile: "twohalves/rockbottom.txt", credits: songCredits("Airavata", "Pep"), releaseDate: "2018-06-28", publishedAt: "2018-06-28T16:53:55Z", soundCloudSlug: "rock-bottom", spotify: "https://open.spotify.com/track/063DeslQCbnH6A6wNPJrPY", appleMusic: "https://music.apple.com/us/album/rock-bottom/1522353508?i=1522353636", youtubeId: "uBgpLewJILU" }),
     ],
-    credits: [{ role: "Production", name: "Airavata" }],
     platforms: [
       { platform: "Spotify", status: "live", url: "https://open.spotify.com/album/2GLetlbMZy8SnlER2n5kmI" },
       { platform: "Apple Music", status: "live", url: "https://music.apple.com/us/album/two-halves-and-two-paths-ep/1522353508" },
@@ -244,16 +255,16 @@ export const catalog: CatalogItem[] = [
     ],
     releaseDate: "2017-12-24",
     tracks: [
-      verifiedTrack({ slug: "i-will-rejoice", title: "I Will Rejoice", lyricsFile: "descent/iwillrejoice.txt", releaseDate: "2017-12-24", publishedAt: "2017-12-25T16:25:34Z", soundCloudSlug: "i-will-rejoice", spotify: "https://open.spotify.com/track/6bzxxVihsodNHpoLoD812r", appleMusic: "https://music.apple.com/us/album/i-will-rejoice/1523728261?i=1523728262", youtubeId: "ETB27ciRgIM" }),
-      verifiedTrack({ slug: "i-know", title: "I Know", lyricsFile: "descent/iknow.txt", releaseDate: "2017-12-25", publishedAt: "2017-12-25T16:25:30Z", soundCloudSlug: "i-know", spotify: "https://open.spotify.com/track/6ao176qn6pDFyvDKFW4l2E", appleMusic: "https://music.apple.com/us/album/i-know/1523728261?i=1523728263", youtubeId: "AgeM3AAS54E" }),
-      verifiedTrack({ slug: "product-of-everything", title: "Product of Everything", lyricsFile: "descent/productofeverything.txt", releaseDate: "2017-12-25", publishedAt: "2017-12-25T16:25:27Z", soundCloudSlug: "product-of-everything", spotify: "https://open.spotify.com/track/6JXpL3seE3jPbZvZ9tYFFn", appleMusic: "https://music.apple.com/us/album/product-of-everything/1523728261?i=1523728264", youtubeId: "ZfhaCE7sGZ4" }),
-      verifiedTrack({ slug: "diamonds", title: "Diamonds", lyricsFile: "descent/diamonds.txt", releaseDate: "2017-11-28", publishedAt: "2017-11-28T23:16:31Z", description: "\"Diamonds\" off the upcoming mixtape \"The Descent\" dropping this Christmas.", soundCloudSlug: "diamonds", spotify: "https://open.spotify.com/track/26Echoivp6ByV07vC3VR2w", appleMusic: "https://music.apple.com/us/album/diamonds/1523728261?i=1523728265", youtubeId: "jlLt8rYBElk" }),
-      verifiedTrack({ slug: "bandsonit", title: "bandsonit", lyricsFile: "descent/bandsonit.txt", releaseDate: "2017-12-24", publishedAt: "2017-12-25T16:25:20Z", soundCloudSlug: "bandsonit", spotify: "https://open.spotify.com/track/3nX3ziXmOG0zDjmM6mUgGz", appleMusic: "https://music.apple.com/us/album/bandsonit/1523728261?i=1523728356", youtubeId: "Nj9cIb9Kdgo" }),
-      verifiedTrack({ slug: "fuck-everybody", title: "Fuck Everybody", lyricsFile: "descent/fuckeverybody.txt", releaseDate: "2017-12-24", publishedAt: "2017-12-25T16:25:16Z", soundCloudSlug: "fuck-everybody", spotify: "https://open.spotify.com/track/1lnNuHNIjkQMAPj0Mc6wRn", appleMusic: "https://music.apple.com/us/album/f-k-everybody/1523728261?i=1523728357", youtubeId: "zaQDggmaL6o" }),
-      verifiedTrack({ slug: "my-turn", title: "My Turn", lyricsFile: "descent/myturn.txt", releaseDate: "2017-12-24", publishedAt: "2017-12-25T16:25:13Z", soundCloudSlug: "my-turn", spotify: "https://open.spotify.com/track/3jeVCyWp9Zx2zd6rw4eOuN", appleMusic: "https://music.apple.com/us/album/my-turn/1523728261?i=1523728358", youtubeId: "KDtUaYLz2kc" }),
-      verifiedTrack({ slug: "missed-opportunities", title: "Missed Opportunities", lyricsFile: "descent/missedopportunities.txt", releaseDate: "2017-12-24", publishedAt: "2017-12-25T16:25:08Z", soundCloudSlug: "missed-opportunities", spotify: "https://open.spotify.com/track/036UAJ9ke5zW2UBFdWsLF9", appleMusic: "https://music.apple.com/us/album/missed-opportunities/1523728261?i=1523728359", youtubeId: "U-EDsSAO0s4" }),
-      verifiedTrack({ slug: "the-struggle", title: "The Struggle", lyricsFile: "descent/thestruggle.txt", releaseDate: "2017-12-24", publishedAt: "2017-12-25T16:25:04Z", soundCloudSlug: "the-struggle", spotify: "https://open.spotify.com/track/0Zeon1VGVJ37UWFoaHgCMp", appleMusic: "https://music.apple.com/us/album/the-struggle/1523728261?i=1523728360", youtubeId: "mWCdML4SoLY" }),
-      verifiedTrack({ slug: "gone", title: "Gone", lyricsFile: "descent/gone.txt", releaseDate: "2017-12-25", publishedAt: "2017-12-25T16:25:00Z", soundCloudSlug: "gone", spotify: "https://open.spotify.com/track/1bPSfOQuXY4WWAjwk5h6Hs", appleMusic: "https://music.apple.com/us/album/gone/1523728261?i=1523728361", youtubeId: "8cxmWHhap50" }),
+      verifiedTrack({ slug: "i-will-rejoice", title: "I Will Rejoice", lyricsFile: "descent/iwillrejoice.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-12-24", publishedAt: "2017-12-25T16:25:34Z", soundCloudSlug: "i-will-rejoice", spotify: "https://open.spotify.com/track/6bzxxVihsodNHpoLoD812r", appleMusic: "https://music.apple.com/us/album/i-will-rejoice/1523728261?i=1523728262", youtubeId: "ETB27ciRgIM" }),
+      verifiedTrack({ slug: "i-know", title: "I Know", lyricsFile: "descent/iknow.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-12-25", publishedAt: "2017-12-25T16:25:30Z", soundCloudSlug: "i-know", spotify: "https://open.spotify.com/track/6ao176qn6pDFyvDKFW4l2E", appleMusic: "https://music.apple.com/us/album/i-know/1523728261?i=1523728263", youtubeId: "AgeM3AAS54E" }),
+      verifiedTrack({ slug: "product-of-everything", title: "Product of Everything", lyricsFile: "descent/productofeverything.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-12-25", publishedAt: "2017-12-25T16:25:27Z", soundCloudSlug: "product-of-everything", spotify: "https://open.spotify.com/track/6JXpL3seE3jPbZvZ9tYFFn", appleMusic: "https://music.apple.com/us/album/product-of-everything/1523728261?i=1523728264", youtubeId: "ZfhaCE7sGZ4" }),
+      verifiedTrack({ slug: "diamonds", title: "Diamonds", lyricsFile: "descent/diamonds.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-11-28", publishedAt: "2017-11-28T23:16:31Z", description: "\"Diamonds\" off the upcoming mixtape \"The Descent\" dropping this Christmas.", soundCloudSlug: "diamonds", spotify: "https://open.spotify.com/track/26Echoivp6ByV07vC3VR2w", appleMusic: "https://music.apple.com/us/album/diamonds/1523728261?i=1523728265", youtubeId: "jlLt8rYBElk" }),
+      verifiedTrack({ slug: "bandsonit", title: "bandsonit", lyricsFile: "descent/bandsonit.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-12-24", publishedAt: "2017-12-25T16:25:20Z", soundCloudSlug: "bandsonit", spotify: "https://open.spotify.com/track/3nX3ziXmOG0zDjmM6mUgGz", appleMusic: "https://music.apple.com/us/album/bandsonit/1523728261?i=1523728356", youtubeId: "Nj9cIb9Kdgo" }),
+      verifiedTrack({ slug: "fuck-everybody", title: "Fuck Everybody", lyricsFile: "descent/fuckeverybody.txt", credits: songCredits("BriggityBrax", "Full Tilt Studios"), releaseDate: "2017-12-24", publishedAt: "2017-12-25T16:25:16Z", soundCloudSlug: "fuck-everybody", spotify: "https://open.spotify.com/track/1lnNuHNIjkQMAPj0Mc6wRn", appleMusic: "https://music.apple.com/us/album/f-k-everybody/1523728261?i=1523728357", youtubeId: "zaQDggmaL6o" }),
+      verifiedTrack({ slug: "my-turn", title: "My Turn", lyricsFile: "descent/myturn.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-12-24", publishedAt: "2017-12-25T16:25:13Z", soundCloudSlug: "my-turn", spotify: "https://open.spotify.com/track/3jeVCyWp9Zx2zd6rw4eOuN", appleMusic: "https://music.apple.com/us/album/my-turn/1523728261?i=1523728358", youtubeId: "KDtUaYLz2kc" }),
+      verifiedTrack({ slug: "missed-opportunities", title: "Missed Opportunities", lyricsFile: "descent/missedopportunities.txt", credits: songCredits("BriggityBrax", "Full Tilt Studios"), releaseDate: "2017-12-24", publishedAt: "2017-12-25T16:25:08Z", soundCloudSlug: "missed-opportunities", spotify: "https://open.spotify.com/track/036UAJ9ke5zW2UBFdWsLF9", appleMusic: "https://music.apple.com/us/album/missed-opportunities/1523728261?i=1523728359", youtubeId: "U-EDsSAO0s4" }),
+      verifiedTrack({ slug: "the-struggle", title: "The Struggle", lyricsFile: "descent/thestruggle.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-12-24", publishedAt: "2017-12-25T16:25:04Z", soundCloudSlug: "the-struggle", spotify: "https://open.spotify.com/track/0Zeon1VGVJ37UWFoaHgCMp", appleMusic: "https://music.apple.com/us/album/the-struggle/1523728261?i=1523728360", youtubeId: "mWCdML4SoLY" }),
+      verifiedTrack({ slug: "gone", title: "Gone", lyricsFile: "descent/gone.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-12-25", publishedAt: "2017-12-25T16:25:00Z", soundCloudSlug: "gone", spotify: "https://open.spotify.com/track/1bPSfOQuXY4WWAjwk5h6Hs", appleMusic: "https://music.apple.com/us/album/gone/1523728261?i=1523728361", youtubeId: "8cxmWHhap50" }),
     ],
     platforms: [
       { platform: "Spotify", status: "live", url: "https://open.spotify.com/album/7wWQmQHlwLOUbVQrr8Lrli" },
@@ -294,24 +305,20 @@ export const catalog: CatalogItem[] = [
       "Lift Off is Pep’s first mixtape. Its 14 songs center on Pep’s life up to that point and his dreams for the future.",
     ],
     tracks: [
-      verifiedTrack({ slug: "interstellar", title: "Interstellar", lyricsFile: "liftoff/interstellar.txt", releaseDate: "2017-05-04", publishedAt: "2017-05-04T15:41:40Z", soundCloudSlug: "interstellar" }),
-      verifiedTrack({ slug: "keep-your-head-up", title: "Keep Your Head Up", lyricsFile: "liftoff/keepyourheadup.txt", releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:38Z", soundCloudSlug: "keep-your-head-up" }),
-      verifiedTrack({ slug: "unapproachable", title: "Unapproachable", lyricsFile: "liftoff/unapproachable.txt", releaseDate: "2017-05-04", publishedAt: "2017-05-04T15:41:35Z", soundCloudSlug: "unapproachable" }),
-      verifiedTrack({ slug: "the-best", title: "The Best", featuredArtists: ["$uicide Kent"], lyricsFile: "liftoff/thebest.txt", releaseDate: "2017-05-04", publishedAt: "2017-05-04T15:41:34Z", soundCloudSlug: "the-best-feat-suicide-kent" }),
-      verifiedTrack({ slug: "soothe-my-soul", title: "Soothe My Soul", lyricsFile: "liftoff/soothemysoul.txt", releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:33Z", soundCloudSlug: "soothe-my-soul" }),
-      verifiedTrack({ slug: "dreams", title: "Dreams", lyricsFile: "liftoff/dreams.txt", releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:31Z", soundCloudSlug: "dreams-1" }),
-      verifiedTrack({ slug: "no-pressure", title: "No Pressure", lyricsFile: "liftoff/nopressure.txt", releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:29Z", soundCloudSlug: "no-pressure-1" }),
-      verifiedTrack({ slug: "take-me-away", title: "Take Me Away", lyricsFile: "liftoff/takemeaway.txt", releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:28Z", soundCloudSlug: "take-me-away" }),
-      verifiedTrack({ slug: "the-fool", title: "The Fool", lyricsFile: "liftoff/thefool.txt", releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:27Z", soundCloudSlug: "the-fool" }),
-      verifiedTrack({ slug: "alone", title: "Alone", lyricsFile: "liftoff/alone.txt", releaseDate: "2017-05-04", publishedAt: "2017-05-04T15:41:26Z", soundCloudSlug: "alone-prod-airavata" }),
-      verifiedTrack({ slug: "phenomenon", title: "Phenomenon", lyricsFile: "liftoff/phenomenon.txt", releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:24Z", soundCloudSlug: "phenomenon-1" }),
-      verifiedTrack({ slug: "me", title: "Me", lyricsFile: "liftoff/me.txt", releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:24Z", soundCloudSlug: "me-prod-airavata" }),
-      verifiedTrack({ slug: "circles", title: "Circles", featuredArtists: ["$uicide Kent"], lyricsFile: "liftoff/circles.txt", releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:22Z", soundCloudSlug: "circles-feat-suicide-kent" }),
-      verifiedTrack({ slug: "may", title: "May (Bonus Track)", releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:21Z", soundCloudSlug: "may-bonus-track" }),
-    ],
-    credits: [
-      { role: "Production — The Best", name: "Syndrome" },
-      { role: "Production — Alone and Me", name: "Airavata" },
+      verifiedTrack({ slug: "interstellar", title: "Interstellar", lyricsFile: "liftoff/interstellar.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-05-04", publishedAt: "2017-05-04T15:41:40Z", soundCloudSlug: "interstellar" }),
+      verifiedTrack({ slug: "keep-your-head-up", title: "Keep Your Head Up", lyricsFile: "liftoff/keepyourheadup.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:38Z", soundCloudSlug: "keep-your-head-up" }),
+      verifiedTrack({ slug: "unapproachable", title: "Unapproachable", lyricsFile: "liftoff/unapproachable.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-05-04", publishedAt: "2017-05-04T15:41:35Z", soundCloudSlug: "unapproachable" }),
+      verifiedTrack({ slug: "the-best", title: "The Best", featuredArtists: ["$uicide Kent"], lyricsFile: "liftoff/thebest.txt", credits: songCredits("Syndrome", "Full Tilt Studios", "$uicide Kent"), releaseDate: "2017-05-04", publishedAt: "2017-05-04T15:41:34Z", soundCloudSlug: "the-best-feat-suicide-kent" }),
+      verifiedTrack({ slug: "soothe-my-soul", title: "Soothe My Soul", lyricsFile: "liftoff/soothemysoul.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:33Z", soundCloudSlug: "soothe-my-soul" }),
+      verifiedTrack({ slug: "dreams", title: "Dreams", lyricsFile: "liftoff/dreams.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:31Z", soundCloudSlug: "dreams-1" }),
+      verifiedTrack({ slug: "no-pressure", title: "No Pressure", lyricsFile: "liftoff/nopressure.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:29Z", soundCloudSlug: "no-pressure-1" }),
+      verifiedTrack({ slug: "take-me-away", title: "Take Me Away", lyricsFile: "liftoff/takemeaway.txt", credits: songCredits("BriggityBrax", "Full Tilt Studios", "$uicide Kent"), releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:28Z", soundCloudSlug: "take-me-away" }),
+      verifiedTrack({ slug: "the-fool", title: "The Fool", lyricsFile: "liftoff/thefool.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:27Z", soundCloudSlug: "the-fool" }),
+      verifiedTrack({ slug: "alone", title: "Alone", lyricsFile: "liftoff/alone.txt", credits: songCredits("Airavata", "Full Tilt Studios"), releaseDate: "2017-05-04", publishedAt: "2017-05-04T15:41:26Z", soundCloudSlug: "alone-prod-airavata" }),
+      verifiedTrack({ slug: "phenomenon", title: "Phenomenon", lyricsFile: "liftoff/phenomenon.txt", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:24Z", soundCloudSlug: "phenomenon-1" }),
+      verifiedTrack({ slug: "me", title: "Me", lyricsFile: "liftoff/me.txt", credits: songCredits("Airavata", "Full Tilt Studios"), releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:24Z", soundCloudSlug: "me-prod-airavata" }),
+      verifiedTrack({ slug: "circles", title: "Circles", featuredArtists: ["$uicide Kent"], lyricsFile: "liftoff/circles.txt", credits: songCredits("Pep", "Full Tilt Studios", "$uicide Kent"), releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:22Z", soundCloudSlug: "circles-feat-suicide-kent" }),
+      verifiedTrack({ slug: "may", title: "May (Bonus Track)", credits: songCredits("Pep", "Full Tilt Studios"), releaseDate: "2017-05-03", publishedAt: "2017-05-04T15:41:21Z", soundCloudSlug: "may-bonus-track" }),
     ],
     platforms: [
       {
@@ -348,6 +355,7 @@ export const catalog: CatalogItem[] = [
     summary: "Thank you G.",
     description: "Thank you G.",
     lyricsFile: "singles/achievement.txt",
+    credits: pepLyricsCredit,
     video: { id: "KxR5OsiWIpk", title: "Achievement by Pep" },
     platforms: [
       { platform: "Spotify", status: "live", url: "https://open.spotify.com/track/0QQTenZr3WcBV5tOfuJJrw" },
@@ -387,6 +395,7 @@ export const catalog: CatalogItem[] = [
     summary: "I've made a lot of mistakes. But it's all part of the journey.",
     description: "I've made a lot of mistakes. But it's all part of the journey.",
     lyricsFile: "singles/mistakes.txt",
+    credits: pepLyricsCredit,
     video: { id: "xCjGH1qGb2s", title: "Mistakes! by Pep" },
     platforms: [
       { platform: "Spotify", status: "live", url: "https://open.spotify.com/track/3hqHwZG4W90dZW4hX9p5th" },
@@ -426,6 +435,7 @@ export const catalog: CatalogItem[] = [
     summary: "Spooky SZN",
     description: "Spooky SZN",
     lyricsFile: "singles/gho5t.txt",
+    credits: pepLyricsCredit,
     video: { id: "YN9UdZub3Tk", title: "GHO5T by Pep" },
     platforms: [
       { platform: "Spotify", status: "live", url: "https://open.spotify.com/track/0UFIfQ6kSPcBXbNyHAIbRu" },
@@ -456,6 +466,7 @@ export const catalog: CatalogItem[] = [
     theme: "archive",
     summary: "A 2022 single from Pep.",
     lyricsFile: "singles/fumble.txt",
+    credits: pepLyricsCredit,
     video: { id: "hT4Jw4LspBE", title: "Fumble by Pep" },
     platforms: [
       { platform: "Spotify", status: "live", url: "https://open.spotify.com/track/7yGFlgmQ8vf4BPCHRVArzq" },
@@ -506,6 +517,19 @@ function validateCatalog(items: CatalogItem[]) {
   const errors: string[] = [];
   const slugs = new Set<string>();
 
+  const validateCredits = (owner: string, credits?: Credit[]) => {
+    if (!credits?.length) {
+      errors.push(`${owner}: published lyrics require song-level credits`);
+      return;
+    }
+    if (!credits.some((credit) => credit.role === "Lyrics" && credit.name === "Pep")) {
+      errors.push(`${owner}: lyrics credit must identify Pep`);
+    }
+    for (const credit of credits) {
+      if (!credit.role.trim() || !credit.name.trim()) errors.push(`${owner}: credits require a role and name`);
+    }
+  };
+
   const validateDestination = (owner: string, destination: PlatformDestination) => {
     if (destination.status === "live" && !destination.url) {
       errors.push(`${owner}: live ${destination.platform} destination requires a URL`);
@@ -537,6 +561,10 @@ function validateCatalog(items: CatalogItem[]) {
     if (item.publishedAt && Number.isNaN(Date.parse(item.publishedAt))) {
       errors.push(`${item.title}: publishedAt must be a valid source timestamp`);
     }
+    if (item.lyricsFile) validateCredits(item.title, item.credits);
+    if ((item.kind === "album" || item.kind === "ep") && item.credits?.length) {
+      errors.push(`${item.title}: project credits must be assigned to individual tracks`);
+    }
     for (const destination of item.platforms) validateDestination(item.title, destination);
     if (item.video && !/^[A-Za-z0-9_-]{11}$/.test(item.video.id)) errors.push(`${item.title}: invalid YouTube video ID`);
     const trackSlugs = new Set<string>();
@@ -546,6 +574,7 @@ function validateCatalog(items: CatalogItem[]) {
       if (trackSlugs.has(track.slug)) errors.push(`${item.title}: duplicate track slug ${track.slug}`);
       trackSlugs.add(track.slug);
       if (item.visibility !== "public" && track.lyricsFile) errors.push(`${item.title}: non-public release cannot publish lyric files`);
+      if (track.lyricsFile) validateCredits(trackOwner, track.credits);
       if (track.releaseDate && !/^\d{4}-\d{2}-\d{2}$/.test(track.releaseDate)) errors.push(`${trackOwner}: invalid release date`);
       if (track.publishedAt && Number.isNaN(Date.parse(track.publishedAt))) errors.push(`${trackOwner}: invalid publication timestamp`);
       if (item.visibility === "public" && item.status === "archive" && !track.releaseDate) errors.push(`${trackOwner}: archived public tracks require an exact release date`);

@@ -4,7 +4,7 @@ export function NetworkFooter() {
   return (
     <footer>
       <Link className="brand footer-brand" href="/" aria-label="PepMusic home">
-        <span className="brand-mark">P</span><span>PEPMUSIC</span>
+        <span className="record-mark" aria-hidden="true"><span /></span><span>PEPMUSIC</span>
       </Link>
       <nav className="network-links" aria-label="PepUniverse network">
         <a href="https://pepuniverse.com" target="_blank" rel="noopener noreferrer">PepUniverse ↗</a>

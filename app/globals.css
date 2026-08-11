@@ -1369,6 +1369,31 @@ a.platform-link:focus-visible {
   overflow-wrap: anywhere;
 }
 
+.song-credits {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: clamp(40px, 10vw, 150px);
+  grid-template-columns: minmax(210px, 0.55fr) minmax(0, 1fr);
+  padding-bottom: clamp(64px, 8vw, 110px);
+  padding-top: clamp(52px, 7vw, 90px);
+}
+
+.song-credits .credit-list {
+  margin: 0;
+}
+
+.song-credits .credit-list > div {
+  align-items: baseline;
+  min-height: 54px;
+}
+
+.song-credits .credit-list dt {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 .legal-page,
 .not-found {
   min-height: 70svh;
@@ -1393,6 +1418,7 @@ a.platform-link:focus-visible {
   .release-hero,
   .release-details,
   .lyrics-section,
+  .song-credits,
   .lyric-hero-layout,
   .lyric-hero-layout.has-video {
     grid-template-columns: 1fr;
