@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { NetworkFooter } from "@/components/NetworkFooter";
-import { SiteHeader } from "@/components/SiteHeader";
-import { archiveCatalog, formatKind } from "@/data/catalog";
+import { ListeningLinks } from "@/components/ListeningLinks";
+import { formatKind, publicCatalog } from "@/data/catalog";
 
 export const metadata: Metadata = {
   title: "Music Archive | PepMusic",
@@ -15,38 +14,52 @@ export const metadata: Metadata = {
   },
 };
 
+const captions: Record<number, string> = {
+  2017: "Pep released Lift Off in May and The Descent on Christmas Eve.",
+  2018: "Six songs on Two Halves and Two Paths, released June 27.",
+  2022: "Four singles, from Mistakes! in May to GHO5T in October.",
+};
+const monthDay = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+const years = [...new Set(publicCatalog.map((release) => release.year))].sort((a, b) => a - b);
+
 export default function ArchivePage() {
   return (
-    <main className="archive-page">
-      <SiteHeader compact />
-      <header className="archive-hero section-shell">
-        <p className="eyebrow">THE MUSIC OF PEP</p>
-        <h1>The archive.</h1>
-        <p>Projects and singles from 2017 onward. Choose a release for its story and lyrics, or listen on your preferred platform.</p>
-      </header>
-
-      <section className="archive-list section-shell" aria-label="Archived releases">
-        {archiveCatalog.map((release) => (
-          <article className="archive-row" key={release.slug}>
-            <Link className="archive-release-link" href={`/${release.slug}`} aria-label={`Explore ${release.title}`}>
-              <img src={release.artwork} alt={release.artworkAlt} />
-              <div>
-                <p>{formatKind(release.kind)} · {release.year}</p>
-                <h2>{release.title}</h2>
-                <span>{release.summary}</span>
+    <main className="tl-archive">
+      <h1 className="tl-archive-name">Through the years</h1>
+      <div className="tl-eras">
+        {years.map((year) => {
+          const releases = publicCatalog.filter((release) => release.year === year)
+            .sort((a, b) => (a.releaseDate ?? "9999").localeCompare(b.releaseDate ?? "9999"));
+          const first = releases[0];
+          const upcoming = releases.every((release) => release.status === "upcoming");
+          const caption = captions[year] ?? (upcoming ? `${first.title}, the upcoming ${formatKind(first.kind).toLowerCase()}.` : first.summary);
+          return (
+            <section className="tl-era" id={String(year)} key={year} aria-labelledby={`year-${year}`} tabIndex={-1}>
+              <nav className="tl-year-nav" aria-label="Browse releases by year">
+                {years.map((option) => <a key={option} href={`#${option}`} aria-current={option === year ? "true" : undefined}>{option}</a>)}
+              </nav>
+              <div className="tl-landscape">
+                <div className="tl-year-copy"><h2 id={`year-${year}`}>{year}</h2><p>{caption}</p></div>
+                <Link className="tl-art-link" href={`/${first.slug}`} aria-label={`Explore ${first.title}`}>
+                  <img src={first.artwork} alt={first.artworkAlt} width="520" height="520" loading={year === years[0] ? "eager" : "lazy"} />
+                </Link>
               </div>
-            </Link>
-            <div className="archive-destinations" aria-label={`Listen to ${release.title}`}>
-              {release.platforms.filter((destination) => destination.status === "live").map((destination) => (
-                <a key={destination.platform} href={destination.url} target="_blank" rel="noopener noreferrer">
-                  {destination.platform}<span aria-hidden="true">↗</span>
-                </a>
-              ))}
-            </div>
-          </article>
-        ))}
-      </section>
-      <NetworkFooter />
+              <div className="tl-year-list">
+                <h3>{upcoming ? "Upcoming" : "The releases"}</h3>
+                <ul>{releases.map((release) => (
+                  <li key={release.slug}>
+                    <Link className="tl-jacket-title" href={`/${release.slug}`}>
+                      <img src={release.artwork} alt="" width="64" height="64" />{release.title}
+                    </Link>
+                    <span className="tl-record-meta">{formatKind(release.kind)} · {release.releaseDate ? monthDay.format(new Date(release.releaseDate + "T00:00:00Z")) : "Upcoming"}</span>
+                    <ListeningLinks destinations={release.platforms} title={release.title} className="tl-platforms" />
+                  </li>
+                ))}</ul>
+              </div>
+            </section>
+          );
+        })}
+      </div>
     </main>
   );
 }

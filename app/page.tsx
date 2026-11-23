@@ -1,103 +1,53 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { NetworkFooter } from "@/components/NetworkFooter";
-import { SiteHeader } from "@/components/SiteHeader";
-import { artistProfiles, formatKind, publicProjects, publicSingles } from "@/data/catalog";
+import { AlbumNotes } from "@/components/AlbumNotes";
+import { ListeningLinks } from "@/components/ListeningLinks";
+import { artistProfiles, publicCatalog, publicProjects } from "@/data/catalog";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/" },
-};
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default function Home() {
-  const growth = publicProjects.find((project) => project.slug === "growth")!;
-
+  const growth = publicProjects.find(release => release.slug === "growth")!;
+  const debut = publicProjects.find(release => release.slug === "lift-off")!;
+  const growthHref = "/" + growth.slug;
+  const status = growth.status === "upcoming" ? "Upcoming album" : "Album";
   return (
-    <main>
-      <SiteHeader />
-      <section className="hero" id="top" aria-labelledby="growth-title">
-        <div className="hero-glow" aria-hidden="true" />
-        <div className="hero-copy">
-          <p className="eyebrow">A NEW ALBUM BY PEP</p>
-          <h1 id="growth-title">GROWTH</h1>
-          <p className="hero-intro">{growth.summary} The official release date and listening links are coming soon.</p>
-          <div className="hero-actions">
-            <Link className="button button-primary" href="/growth">Enter the Growth page</Link>
-            <Link className="button button-quiet" href="/archive">Explore the archive</Link>
+    <main className="treeline-home" id="top">
+      <section className="landscape" aria-labelledby="artist-title">
+        <div className="forest" aria-hidden="true"><img src={growth.artwork} alt="" fetchPriority="high" /></div>
+        <div className="artist"><h1 id="artist-title"><span className="by">Music by</span><span className="signature">Pep</span></h1></div>
+        <AlbumNotes title={growth.title} href={growthHref} status={status}>
+          <div className="jacket"><img src={growth.artwork} alt={growth.artworkAlt} /></div>
+          <div className="notes">
+            <p>{status} by {growth.artist}</p>
+            <h2 id="album-name">{growth.title}</h2>
+            <h3>Track list</h3>
+            <ol>{growth.tracks?.map(track => (
+              <li key={track.slug}>{track.title}{track.featuredArtists?.length ? <small>feat. {track.featuredArtists.join(", ")}</small> : null}</li>
+            ))}</ol>
+            <Link href={growthHref}>Full album notes <span aria-hidden="true">↗</span></Link>
           </div>
-          <dl className="release-facts">
-            <div><dt>Artist</dt><dd>{growth.artist}</dd></div>
-            <div><dt>Release</dt><dd>{growth.year}</dd></div>
-            <div><dt>Format</dt><dd>{formatKind(growth.kind)}</dd></div>
-          </dl>
-        </div>
-        <div className="hero-art-wrap">
-          <div className="orbit orbit-one" aria-hidden="true" /><div className="orbit orbit-two" aria-hidden="true" />
-          <Link className="hero-art-link" href="/growth" aria-label="Explore Growth">
-            <figure className="hero-art">
-              <img src={growth.artwork} alt={growth.artworkAlt} />
-              <figcaption><span>PEP</span><span>{growth.year}</span></figcaption>
-            </figure>
-          </Link>
-        </div>
-        <div className="scroll-cue" aria-hidden="true"><span /> Scroll to the roots</div>
+        </AlbumNotes>
       </section>
-
-      <section className="manifesto" aria-label="PepMusic introduction">
-        <p>INDEPENDENT MUSIC</p><p>PENNSYLVANIA</p><p>EST. 2016</p>
+      <section className="listening" aria-labelledby="listen-title">
+        <Link className="record" href={"/" + debut.slug} aria-label={"Explore " + debut.title + " in the archive"}>
+          <img src={debut.artwork} alt="" width={66} height={66} />
+          <div><p>Pep’s debut mixtape</p><h2 id="listen-title">{debut.title}</h2></div>
+        </Link>
+        <ListeningLinks destinations={debut.platforms} title={debut.title} className="debut-services" listenPrefix />
       </section>
-
-      <section className="artist-profiles section-shell" id="find-pep" aria-labelledby="find-pep-title">
-        <div>
-          <p className="eyebrow">LISTEN &amp; FOLLOW</p>
-          <h2 id="find-pep-title">Find Pep.</h2>
-        </div>
-        <div className="artist-profile-grid">
-          {artistProfiles.map((destination) => (
-            <a key={destination.platform} href={destination.url} target="_blank" rel="noopener noreferrer">
-              <span>{destination.platform}</span><span aria-hidden="true">↗</span>
-            </a>
-          ))}
-        </div>
+      <section className="home-library" id="music" aria-labelledby="library-title">
+        <h2 id="library-title"><Link href="/archive">Release archive</Link></h2>
+        <nav aria-labelledby="library-title">{publicCatalog.map(release => (
+          <Link href={"/" + release.slug} key={release.slug}>{release.title}</Link>
+        ))}</nav>
       </section>
-
-      <section className="catalog section-shell" id="music">
-        <div className="section-heading">
-          <p className="eyebrow">THE CATALOG</p>
-        </div>
-        <div className="release-grid">
-          {publicProjects.map((project, index) => (
-            <Link className={`release-card release-${project.theme}`} href={`/${project.slug}`} key={project.slug}>
-              <article>
-                <div className="release-number">0{index + 1}</div>
-                <div className="release-image"><img src={project.artwork} alt={project.artworkAlt} /></div>
-                <div className="release-meta">
-                  <div><p>{formatKind(project.kind)} · {project.year}</p><h3>{project.title}</h3></div>
-                  <span>{project.status === "upcoming" ? "Coming soon" : "Archive"} →</span>
-                </div>
-              </article>
-            </Link>
-          ))}
-        </div>
+      <section className="home-profiles" id="find-pep" aria-labelledby="find-pep-title">
+        <h2 id="find-pep-title">Find Pep</h2>
+        <nav aria-label="Artist profiles">{artistProfiles.filter(link => link.status === "live" && link.url).map(link => (
+          <a key={link.platform} href={link.url} target="_blank" rel="noopener noreferrer">{link.platform}</a>
+        ))}</nav>
       </section>
-
-      <section className="singles section-shell" aria-labelledby="singles-title">
-        <div className="singles-copy">
-          <p className="eyebrow">BETWEEN THE CHAPTERS</p><h2 id="singles-title">Selected singles</h2>
-        </div>
-        <div className="single-covers">
-          {publicSingles.map((single) => (
-            <Link href={`/${single.slug}`} key={single.slug}>
-              <figure><img src={single.artwork} alt={single.artworkAlt} /><figcaption>{single.title} →</figcaption></figure>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="cta section-shell">
-        <p className="eyebrow">THE NEXT CHAPTER</p><h2>Growth is coming in 2026.</h2>
-        <Link className="button button-primary" href="/growth">Explore Growth</Link>
-      </section>
-      <NetworkFooter />
     </main>
   );
 }

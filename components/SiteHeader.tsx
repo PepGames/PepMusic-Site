@@ -1,17 +1,19 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-type SiteHeaderProps = { compact?: boolean };
-
-export function SiteHeader({ compact = false }: SiteHeaderProps) {
+export function SiteHeader({ projectSlugs, singleSlugs }: { projectSlugs: string[]; singleSlugs: string[] }) {
+  const path = usePathname();
+  const [section, track] = path.split("/").filter(Boolean);
+  const lyrics = section === "lyrics" || singleSlugs.includes(section) || (projectSlugs.includes(section) && Boolean(track));
+  const archive = section === "archive" || (projectSlugs.includes(section) && !track);
   return (
-    <header className={`site-header${compact ? " site-header-compact" : ""}`}>
-      <Link className="brand" href="/" aria-label="PepMusic home">
-        <span className="record-mark" aria-hidden="true"><span /></span><span>PEPMUSIC</span>
-      </Link>
-      <nav aria-label="Main navigation">
-        <a className="universe-link" href="https://pepuniverse.com" target="_blank" rel="noopener noreferrer">PepUniverse ↗</a>
-        <Link href="/#music">Music</Link>
-        <Link className="nav-listen" href="/#find-pep">Find Pep</Link>
+    <header className="masthead">
+      <Link className="brand" href="/" aria-current={!section ? "page" : undefined}>PepMusic</Link>
+      <nav aria-label="Music navigation">
+        <Link href="/archive" aria-current={archive ? (section === "archive" ? "page" : "location") : undefined}>Archive</Link>
+        <Link href="/lyrics" aria-current={lyrics ? (section === "lyrics" ? "page" : "location") : undefined}>Lyrics</Link>
       </nav>
     </header>
   );

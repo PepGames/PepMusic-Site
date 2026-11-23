@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import { NetworkFooter } from "@/components/NetworkFooter";
+import { SiteHeader } from "@/components/SiteHeader";
+import { publicProjects, publicSingles } from "@/data/catalog";
 import "./globals.css";
+import "./treeline-archive.css";
+import "./treeline-lyrics.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://music.pepuniverse.com"),
@@ -22,8 +27,14 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#07110e" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#e8f1ee" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+  return (
+    <html lang="en"><body>
+      <SiteHeader projectSlugs={publicProjects.map(item => item.slug)} singleSlugs={publicSingles.map(item => item.slug)} />
+      {children}
+      <NetworkFooter />
+    </body></html>
+  );
 }

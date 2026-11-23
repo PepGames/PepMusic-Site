@@ -1,0 +1,183 @@
+body:has(.treeline-home dialog[open]) { overflow: hidden; }
+
+.treeline-home .landscape {
+  isolation: isolate;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  min-height: clamp(35rem, calc(100svh - 11.75rem), 61rem);
+  overflow: hidden;
+  background: var(--mist);
+}
+.treeline-home .forest { position: absolute; z-index: -1; inset: 0 0 0 19%; }
+.treeline-home .forest img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+  mask-image: linear-gradient(90deg, transparent, #0009 20%, #000 48%);
+}
+.treeline-home .landscape::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(0deg, #092639c7, transparent 31%);
+  mask-image: linear-gradient(90deg, transparent 35%, #000 72%);
+}
+.treeline-home .artist { align-self: center; grid-row: 1 / 3; padding: 0 0 5rem var(--page-gutter); }
+.treeline-home .by {
+  display: block;
+  position: relative;
+  z-index: 1;
+  margin-left: .32em;
+  font: 500 clamp(1.05rem, 1.35vw, 1.45rem)/1.2 var(--sans);
+}
+.treeline-home .signature {
+  display: block;
+  width: max-content;
+  margin: -.02em 0 0 -.055em;
+  font: italic 400 clamp(12rem, 28vw, 33rem)/.88 var(--display);
+  letter-spacing: -.095em;
+}
+.treeline-home .album {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;
+  margin: 2rem var(--page-gutter);
+  color: white;
+  text-align: right;
+  text-shadow: 0 2px 9px #092432;
+}
+.treeline-home .album:focus-visible { outline-color: white; }
+.treeline-home .album-status { display: block; font-size: .9rem; }
+.treeline-home .album-title { font: 400 clamp(2.5rem, 4.6vw, 5rem)/1.08 var(--serif); letter-spacing: -.06em; }
+.treeline-home .album-title span { display: inline-block; font: 400 .37em/1 var(--sans); vertical-align: .3em; letter-spacing: 0; }
+
+.treeline-home .listening {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .25rem 1rem;
+  min-height: 7.15rem;
+  padding: 1rem var(--page-gutter);
+}
+.treeline-home .record { display: flex; align-items: center; gap: clamp(.75rem, 1.5vw, 1.6rem); min-height: 44px; }
+.treeline-home .record:hover { text-decoration: none; }
+.treeline-home .record img { width: 4.1rem; height: 4.1rem; object-fit: cover; }
+.treeline-home .record p, .treeline-home .notes > p { color: var(--muted); font-size: .84rem; }
+.treeline-home .record h2 {
+  font: 400 clamp(1.8rem, 2.5vw, 2.8rem)/1.12 var(--serif);
+  letter-spacing: -.045em;
+  text-decoration: underline .05em #71948e;
+  text-underline-offset: .13em;
+}
+.treeline-home .record:hover h2 { text-decoration-color: currentColor; }
+
+.treeline-home dialog {
+  width: min(59rem, calc(100% - 2rem));
+  max-height: 88svh;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0;
+  border: 0;
+  overscroll-behavior: contain;
+}
+.treeline-home dialog::backdrop { background: #06242ccc; }
+.treeline-home .sheet {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(1.4rem, 4vw, 3.7rem);
+  padding: 4.25rem clamp(1.2rem, 4vw, 3.5rem) 3rem;
+}
+.treeline-home .close-form { position: absolute; top: .4rem; right: 1rem; }
+.treeline-home .close-form button { font: inherit; border: 0; background: transparent; color: inherit; min-height: 44px; cursor: pointer; }
+.treeline-home .close-form span { margin-left: .25em; }
+.treeline-home .jacket { margin: 0; }
+.treeline-home .jacket img { display: block; width: 100%; height: auto; }
+.treeline-home .notes h2 { font: 400 clamp(2.8rem, 4.8vw, 4.8rem)/1.1 var(--serif); letter-spacing: -.065em; }
+.treeline-home .notes h3 { margin: 1.25rem 0 .65rem; font-size: 1rem; }
+.treeline-home .notes ol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, auto);
+  grid-auto-flow: column;
+  gap: .5rem 1.7rem;
+  margin: 0 0 1.25rem;
+  padding-left: 1.55rem;
+  line-height: 1.35;
+}
+.treeline-home .notes li::marker { color: #48686a; }
+.treeline-home .notes small { display: block; font-size: .8em; }
+.treeline-home .notes a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: .2em;
+  font-weight: 600;
+}
+
+.treeline-home .home-library, .treeline-home .home-profiles {
+  padding: clamp(1.7rem, 3.8vw, 4rem) var(--page-gutter);
+  border-top: 1px solid var(--line);
+}
+.treeline-home :is(.home-library, .home-profiles) h2 {
+  margin-bottom: 1rem;
+  font: 400 clamp(1.8rem, 3vw, 3rem)/1.1 var(--serif);
+  letter-spacing: -.05em;
+}
+.treeline-home :is(.home-library, .home-profiles) a {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  min-height: 44px;
+  margin-right: clamp(.75rem, 2.3vw, 2.5rem);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: underline 1px var(--line);
+  text-underline-offset: .25em;
+}
+.treeline-home :is(.home-library, .home-profiles) a:hover { text-decoration-color: currentColor; }
+.treeline-home .home-library h2 a { font-weight: inherit; }
+
+@media (min-width: 65rem) and (min-aspect-ratio: 7/5) {
+  .treeline-home .forest { left: 34%; }
+  .treeline-home .forest img { object-position: 50% 34%; }
+}
+@media (max-width: 45rem) {
+  .treeline-home .landscape {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    min-height: clamp(32rem, calc(100svh - 10.2rem), 48rem);
+  }
+  .treeline-home .forest { inset: 0; }
+  .treeline-home .forest img { object-position: 50% 48%; mask-image: linear-gradient(180deg, #0006, #000 38%); }
+  .treeline-home .landscape::after { background: linear-gradient(180deg, #d6e6e8ab, transparent 40%, transparent 63%, #0a263dba); mask-image: none; }
+  .treeline-home .artist { align-self: stretch; padding: 1.5rem var(--page-gutter) 0; }
+  .treeline-home .by { margin-left: .1em; font-size: .98rem; }
+  .treeline-home .signature { font-size: clamp(7.9rem, 33vw, 14rem); }
+  .treeline-home .album { align-self: end; margin: 1.4rem var(--page-gutter); }
+  .treeline-home .album-status { font-size: .85rem; }
+  .treeline-home .album-title { font-size: clamp(2.5rem, 11.5vw, 4rem); }
+  .treeline-home .listening { min-height: 6.45rem; }
+  .treeline-home .record img { width: 3rem; height: 3rem; }
+  .treeline-home .record p, .treeline-home .listening-links a { font-size: .82rem; }
+  .treeline-home .sheet { display: block; padding: 3.8rem 1.5rem 1rem; }
+  .treeline-home .jacket { float: right; width: 26%; max-width: 6.4rem; margin: 0 0 .6rem .8rem; }
+  .treeline-home .notes h3 { clear: both; }
+}
+@media (max-width: 24rem) {
+  .treeline-home .record { gap: .5rem; }
+  .treeline-home .record img { width: 2.65rem; height: 2.65rem; }
+}
+@media (forced-colors: active) {
+  .treeline-home .album { color: LinkText; text-shadow: none; background: Canvas; }
+}

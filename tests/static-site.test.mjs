@@ -64,6 +64,7 @@ test("exports every approved release and legal route", async () => {
   await access(new URL("privacy/index.html", root));
   await access(new URL("terms/index.html", root));
   await access(new URL("archive/index.html", root));
+  await access(new URL("lyrics/index.html", root));
   await access(new URL("404.html", root));
 });
 
@@ -91,10 +92,10 @@ test("homepage is catalog-driven and links every public release", async () => {
   assert.doesNotMatch(page, /Hear the archive/);
 });
 
-test("archive lists every released public entry and its live destinations", async () => {
+test("archive lists every released public entry and labels Growth as upcoming", async () => {
   const page = await html("archive/index.html");
   for (const slug of publicSlugs.filter((slug) => slug !== "growth")) assert.match(page, new RegExp(`href=["']/${slug}`));
-  assert.doesNotMatch(page, /href=["']\/growth/);
+  assert.match(page, /<h3>Upcoming<\/h3>[\s\S]*?href=["']\/growth\/?["']/);
   for (const platform of ["Spotify", "Apple Music", "YouTube Music", "SoundCloud"]) assert.match(page, new RegExp(platform));
 });
 

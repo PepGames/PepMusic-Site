@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export function NetworkFooter() {
   return (
-    <footer>
+    <footer className="network-footer">
       <Link className="brand footer-brand" href="/" aria-label="PepMusic home">
-        <span className="record-mark" aria-hidden="true"><span /></span><span>PEPMUSIC</span>
+        PepMusic
       </Link>
       <nav className="network-links" aria-label="PepUniverse network">
         <a href="https://pepuniverse.com" target="_blank" rel="noopener noreferrer">PepUniverse ↗</a>
@@ -13,6 +13,7 @@ export function NetworkFooter() {
         <span aria-label="PepMedia, coming later">PepMedia · Coming later</span>
       </nav>
       <nav className="legal-links" aria-label="Legal">
+        <Link href="/#find-pep">Find Pep</Link>
         <Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link>
       </nav>
       <p>© 2026 Pep. All rights reserved.</p>
