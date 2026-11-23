@@ -213,7 +213,9 @@ test("uses exact public single descriptions without archive filler", async () =>
   assert.doesNotMatch(fumble, /ABOUT THE RELEASE|ARCHIVE STATUS|Details in progress|Tilekid\/Sace remix/);
   for (const slug of publicSlugs) {
     const page = await html(`${slug}/index.html`);
-    assert.doesNotMatch(page, /A marker on the path|Track list|Details in progress/);
+    assert.doesNotMatch(page, /A marker on the path|Details in progress/);
+    if (Object.hasOwn(singleLyrics, slug)) assert.doesNotMatch(page, /Track list/);
+    else assert.match(page, /<h2 id="tracks-title">Track list<\/h2>\s*<ol><li>/);
   }
 });
 

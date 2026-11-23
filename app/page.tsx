@@ -8,7 +8,7 @@ export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default function Home() {
   const growth = publicProjects.find(release => release.slug === "growth")!;
-  const debut = publicProjects.find(release => release.slug === "lift-off")!;
+  const featured = publicProjects.find(release => release.slug === "two-halves-and-two-paths")!;
   const growthHref = "/" + growth.slug;
   const status = growth.status === "upcoming" ? "Upcoming album" : "Album";
   return (
@@ -30,11 +30,11 @@ export default function Home() {
         </AlbumNotes>
       </section>
       <section className="listening" aria-labelledby="listen-title">
-        <Link className="record" href={"/" + debut.slug} aria-label={"Explore " + debut.title + " in the archive"}>
-          <img src={debut.artwork} alt="" width={66} height={66} />
-          <div><p>Pep’s debut mixtape</p><h2 id="listen-title">{debut.title}</h2></div>
+        <Link className="record" href={"/" + featured.slug} aria-label={"Explore " + featured.title + " in the archive"}>
+          <img src={featured.artwork} alt="" width={66} height={66} />
+          <div><p>Featured EP</p><h2 id="listen-title">{featured.title}</h2></div>
         </Link>
-        <ListeningLinks destinations={debut.platforms} title={debut.title} className="debut-services" listenPrefix />
+        <ListeningLinks destinations={featured.platforms} title={featured.title} />
       </section>
       <section className="home-library" id="music" aria-labelledby="library-title">
         <h2 id="library-title"><Link href="/archive">Release archive</Link></h2>

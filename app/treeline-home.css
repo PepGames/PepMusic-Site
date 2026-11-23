@@ -73,6 +73,7 @@ body:has(.treeline-home dialog[open]) { overflow: hidden; }
 .treeline-home .record h2 {
   font: 400 clamp(1.8rem, 2.5vw, 2.8rem)/1.12 var(--serif);
   letter-spacing: -.045em;
+  text-wrap: balance;
   text-decoration: underline .05em #71948e;
   text-underline-offset: .13em;
 }

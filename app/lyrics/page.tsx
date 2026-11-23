@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 };
 
 const selections = [
-  { releaseSlug: "lift-off", trackSlug: "dreams", excerpt: "I been dreamin’ for a long time" },
+  { releaseSlug: "fumble", excerpt: "I’m ’bout to show you a fumble" },
   { releaseSlug: "achievement", excerpt: "I’m deep like ocean" },
-  { releaseSlug: "the-descent", trackSlug: "diamonds", excerpt: "Diamonds all I see" },
+  { releaseSlug: "lift-off", trackSlug: "alone", excerpt: "I remember back when we were children" },
 ];
 
 export default function SongbookPage() {

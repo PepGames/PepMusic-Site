@@ -47,7 +47,8 @@
 }
 .tl-full-link, .tl-listen a, .tl-record-info a, .tl-reader-nav a { font: 600 .96rem/1.4 var(--sans); }
 .tl-reading { display: grid; grid-template-columns: minmax(0,42%) minmax(0,1fr); border-top: 1px solid var(--line); }
-.tl-reading-info { align-self: start; padding: clamp(2rem,4vw,4.5rem) var(--page-gutter); background: var(--release-wash); }
+.tl-reading-sidebar { align-self: start; min-width: 0; }
+.tl-reading-info { padding: clamp(2rem,4vw,4.5rem) var(--page-gutter); background: var(--release-wash); }
 .tl-reader-cover { display: block; width: clamp(7rem,13vw,13rem); height: auto; margin: 0 0 1.8rem; }
 .tl-reader-origin { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; margin: 0; }
 .tl-reader-origin a { font-weight: 600; }
@@ -72,7 +73,7 @@
 .tl-reading .credit-list > div { display: grid; grid-template-columns: 1fr 1.2fr; gap: .75rem; min-height: 0; padding-block: .4rem; border: 0; }
 .tl-reading .credit-list dt, .tl-reading .credit-list dd { margin: 0; font: 400 .95rem/1.5 var(--sans); overflow-wrap: anywhere; letter-spacing: normal; text-transform: none; }
 .tl-reading .credit-list dt { color: var(--muted); }
-.tl-reading .song-video { max-width: 42rem; margin-top: 2.5rem; }
+.tl-reading-sidebar .song-video { width: auto; margin: clamp(1.25rem,2.5vw,2.5rem) var(--page-gutter); }
 .tl-reading .song-video-facade, .tl-reading .song-video iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
 .tl-reading .song-video-facade {
   display: flex; align-items: center; gap: 1.1rem;
