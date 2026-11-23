@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 };
 
 const selections = [
-  { releaseSlug: "fumble", excerpt: "I never fold when im crumpled" },
+  { releaseSlug: "fumble", excerpt: "I never fold when I’m crumpled" },
   { releaseSlug: "achievement", excerpt: "I’m deep like ocean" },
-  { releaseSlug: "lift-off", trackSlug: "alone", excerpt: "not the man i was before" },
+  { releaseSlug: "lift-off", trackSlug: "alone", excerpt: "Not the man I was before" },
 ];
 
 export default function SongbookPage() {
